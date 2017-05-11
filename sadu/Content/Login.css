@@ -11,3 +11,14 @@
     text-align: center;
 }
 
+#loginBox button{
+    display: block;
+    margin: 0 auto;
+}
+
+.form-group{
+    text-align: center;
+}
+
+
+
