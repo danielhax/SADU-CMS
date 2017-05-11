@@ -1,0 +1,13 @@
+﻿#loginBox{
+    min-width: 100px;
+    max-width: 60%;
+    height: 200px;
+    background-color:antiquewhite;
+    border-radius: 20px;
+    margin: 20% auto;
+}
+
+#loginBox h2{
+    text-align: center;
+}
+
