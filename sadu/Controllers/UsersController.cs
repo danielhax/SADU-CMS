@@ -6,18 +6,32 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using sadu.DAL;
 using sadu.Models;
 
 namespace sadu.Controllers
 {
     public class UsersController : Controller
     {
-        private UserDBContext db = new UserDBContext();
+        private SADUContext db = new SADUContext();
 
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            if (Session["username"] == null)
+                return Redirect("Login");
+            else
+            {
+                return View(db.Users.ToList());
+            }
+            
+        }
+
+        [ChildActionOnly]
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index", "Login");
         }
 
         // GET: Users/Details/5
@@ -46,7 +60,7 @@ namespace sadu.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,username")] User user)
+        public ActionResult Create([Bind(Include = "Id,username,password,firstName,lastName,isAdmin")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +92,7 @@ namespace sadu.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,username")] User user)
+        public ActionResult Edit([Bind(Include = "Id,username,password,firstName,lastName,isAdmin")] User user)
         {
             if (ModelState.IsValid)
             {
