@@ -10,6 +10,6 @@ namespace sadu.Models
         public int Id { get; set; }
         public String name { get; set; }
 
-        //public virtual List<User> Members { get; set; }
+        public virtual List<User> Users { get; set; }
     }
 }

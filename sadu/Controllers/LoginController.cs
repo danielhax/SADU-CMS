@@ -28,7 +28,6 @@ namespace sadu.Controllers
         {
 
             SADUContext db = new SADUContext();
-            //Console.WriteLine(Request.Form["username"]);
 
            User user = db.Users.FirstOrDefault(u => u.username == username && u.password == password);
 
