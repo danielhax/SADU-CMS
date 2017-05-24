@@ -19,6 +19,6 @@ namespace sadu.Models
         [Required]
         public bool isAdmin { get; set; }
 
-        public virtual List<Organization> Organizations { get; set;}
+        public virtual List<Organization> Organizations { get; set; }
     }
 }

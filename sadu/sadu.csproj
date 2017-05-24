@@ -280,6 +280,11 @@
     <Content Include="Views\Submissions\Details.cshtml" />
     <Content Include="Views\Submissions\Edit.cshtml" />
     <Content Include="Views\Submissions\Index.cshtml" />
+    <Content Include="Views\Submissions1\Create.cshtml" />
+    <Content Include="Views\Submissions1\Delete.cshtml" />
+    <Content Include="Views\Submissions1\Details.cshtml" />
+    <Content Include="Views\Submissions1\Edit.cshtml" />
+    <Content Include="Views\Submissions1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

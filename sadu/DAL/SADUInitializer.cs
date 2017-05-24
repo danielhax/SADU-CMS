@@ -9,9 +9,9 @@ namespace sadu.DAL
         protected override void Seed(SADUContext context)
         {
             //Declare sample orgs first so it can be used in creating users, otherwise the orgs won't exist
-            Organization org1 = new Organization { name = "SSC", Users = new List<User>() { context.Users.Find(1), context.Users.Find(2) } },
-                org2 = new Organization { name = "ACM", Users = new List<User>() { context.Users.Find(3), context.Users.Find(4) } },
-                org3 = new Organization { name = "JPCS", Users = new List<User>() { context.Users.Find(2) } };
+            Organization org1 = new Organization { name = "SSC" },
+                org2 = new Organization { name = "ACM" },
+                org3 = new Organization { name = "JPCS" };
 
             var users = new List<User>
             {
@@ -25,6 +25,23 @@ namespace sadu.DAL
             users.ForEach(u => context.Users.Add(u));
             context.SaveChanges();
 
+            var submissions = new List<Submission>
+            {
+                new Submission{title="Documents", description="Submit these documents", Organization = org1},
+                new Submission{title="Documents", description="Submit these documents", Organization = org2},
+                new Submission{title="Documents", description="Submit these documents", Organization = org2},
+                new Submission{title="Documents", description="Submit these documents", Organization = org3},
+                new Submission{title="Documents", description="Submit these documents", Organization = org3}
+            };
+
+            submissions.ForEach(s => context.Submissions.Add(s));
+            context.SaveChanges();
+
+            //extra code for adding sample submissions to orgs
+            org1.Pending_Submissions.Add(submissions[0]);
+            org2.Pending_Submissions.AddRange(submissions.GetRange(1, 2));
+            org3.Pending_Submissions.AddRange(submissions.GetRange(3, 1));
+
             var organizations = new List<Organization>
             {
                 org1,
@@ -35,10 +52,6 @@ namespace sadu.DAL
             organizations.ForEach(o => context.Organizations.Add(o));
             context.SaveChanges();
 
-            //var submissions = new List<Submission>
-            //{
-            //    new Submission{title="Documents", description="Submit these documents",}
-            //}
         }
     }
 }
