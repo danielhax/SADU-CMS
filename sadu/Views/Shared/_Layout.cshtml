@@ -63,14 +63,14 @@
 						<p>Profile</p>
 					</a>
 				</li>
-                <li>
-                    <a href="user.html">
-                        <i class="pe-7s-culture"></i>
-                        <p>Organizations</p>
-                    </a>
-                </li>
 				<li>
-					<a href="@Url.Action("Logout")">
+					<a href="user.html">
+						<i class="pe-7s-culture"></i>
+						<p>Organizations</p>
+					</a>
+				</li>
+				<li>
+					<a href="@Url.Action("Logout", new { validRequest = true })">
 						<i class="pe-7s-back"></i>
 						<p>Logout</p>
 					</a>

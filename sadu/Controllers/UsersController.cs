@@ -26,12 +26,16 @@ namespace sadu.Controllers
             }
             
         }
-
-        [ChildActionOnly]
-        public ActionResult Logout()
+        
+        public ActionResult Logout(bool validRequest)
         {
-            Session.Abandon();
+            if (validRequest)
+            {
+                Session.Abandon();
+            }
+                
             return RedirectToAction("Index", "Login");
+            
         }
 
         // GET: Users/Details/5
