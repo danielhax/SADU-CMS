@@ -12,7 +12,7 @@ namespace sadu.Models
         public String title { get; set; }
         public String description { get; set; }
         [Required]
-        public Organization Organization { get; set; }
+        public virtual Organization Organization { get; set; }
         
     }
 }

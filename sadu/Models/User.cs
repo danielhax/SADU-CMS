@@ -6,6 +6,11 @@ namespace sadu.Models
 {
     public class User
     {
+
+        public User()
+        {
+            this.Organizations = new List<Organization>();
+        }
         
         public int Id { get; set; }
         [Required]
@@ -19,6 +24,6 @@ namespace sadu.Models
         [Required]
         public bool isAdmin { get; set; }
 
-        public virtual List<Organization> Organizations { get; set; }
+        public virtual ICollection<Organization> Organizations { get; set; }
     }
 }

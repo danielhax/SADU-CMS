@@ -13,6 +13,7 @@ namespace sadu.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<Submission> Submissions { get; set; }
+        public DbSet<OrganizationImage> Organization_Images { get; set; }
         
     }
 }

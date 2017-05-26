@@ -158,12 +158,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="fonts\Users.cs" />
+    <Compile Include="Models\OrganizationImage.cs" />
     <Compile Include="Models\Submission.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\scc.png" />
+    <Content Include="Assets\jpcs.jpg" />
+    <Content Include="Assets\acm.png" />
+    <Content Include="Content\custom.css" />
     <Content Include="template_assets\css\animate.min.css" />
     <Content Include="template_assets\css\bootstrap.min.css" />
     <Content Include="template_assets\css\demo.css" />
@@ -280,11 +285,7 @@
     <Content Include="Views\Submissions\Details.cshtml" />
     <Content Include="Views\Submissions\Edit.cshtml" />
     <Content Include="Views\Submissions\Index.cshtml" />
-    <Content Include="Views\Submissions1\Create.cshtml" />
-    <Content Include="Views\Submissions1\Delete.cshtml" />
-    <Content Include="Views\Submissions1\Details.cshtml" />
-    <Content Include="Views\Submissions1\Edit.cshtml" />
-    <Content Include="Views\Submissions1\Index.cshtml" />
+    <Content Include="Views\Users\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

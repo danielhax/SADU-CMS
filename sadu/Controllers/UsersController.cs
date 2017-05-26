@@ -18,8 +18,29 @@ namespace sadu.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            if (Session["username"] == null)
+                return RedirectToAction("","Login");
+            else
+            {
+                return View(db.Submissions.ToList());
+            }
+            
         }
+        
+        public ActionResult Logout(bool validRequest = false)
+        {
+            if (validRequest)
+            {
+                Session.Abandon();
+                return RedirectToAction("", "Login");
+            }
+            else
+            {
+                return Index();
+            }
+
+        }
+
 
         // GET: Users/Details/5
         public ActionResult Details(int? id)

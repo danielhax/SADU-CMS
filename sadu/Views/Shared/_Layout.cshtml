@@ -20,9 +20,11 @@
 	<!--  Light Bootstrap Table core CSS    -->
 	<link href="~/template_assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
 
+	<!--  Custom CSS -->
+	<link href="~/Content/custom.css" rel="stylesheet" />
 
-	<!--  CSS for Demo Purpose, don't include it in your project     -->
-	<link href="~/template_assets/css/demo.css" rel="stylesheet" />
+	<!--  CSS for Demo Purpose, don't include it in your project     
+	<link href="~/template_assets/css/demo.css" rel="stylesheet" />-->
 
 
 	<!--     Fonts and icons     -->
@@ -46,7 +48,7 @@
 		<div class="sidebar-wrapper">
 			<div class="logo">
 				<a href="@Url.Action("Index")" class="simple-text">
-					SADU
+					@Session["username"]
 				</a>
 			</div>
 
