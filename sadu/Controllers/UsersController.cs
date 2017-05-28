@@ -1,30 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using sadu.DAL;
 using sadu.Models;
+using System.Collections.Generic;
+using System;
 
 namespace sadu.Controllers
 {
     public class UsersController : Controller
     {
         private SADUContext db = new SADUContext();
-
-        // GET: Users
+        private List<Organization> organizations;
+        private SubmissionsController s = new SubmissionsController();
+        
         public ActionResult Index()
         {
+            organizations = (List<Organization>)Session["organizations"];
+
             if (Session["username"] == null)
-                return RedirectToAction("","Login");
+                return RedirectToAction("", "Login");
             else
             {
-                return View(db.Submissions.ToList());
+                ////if user is admin run this
+                if ((bool)System.Web.HttpContext.Current.Session["isAdmin"])
+                    return View("Admin", s.GetPendingSubmissions(organizations));
+                ////if user is not an admin run this
+                else
+                    return View(s.GetPendingSubmissions(organizations));
+
             }
-            
+
         }
         
         public ActionResult Logout(bool validRequest = false)
@@ -32,7 +39,7 @@ namespace sadu.Controllers
             if (validRequest)
             {
                 Session.Abandon();
-                return RedirectToAction("", "Login");
+                return RedirectToAction("", "Session");
             }
             else
             {
@@ -145,5 +152,6 @@ namespace sadu.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }

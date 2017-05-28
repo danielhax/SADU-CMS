@@ -1,4 +1,6 @@
 ﻿$(function () {
+
+    //action listeners
     $('#loginForm').submit(function (e) {
         e.preventDefault();
         console.log('asd');
@@ -13,8 +15,23 @@
                 }
             },
             error: function (xhr) {
-                alert(xhr.responseText + "lmaooo");
+                alert("Error" + xhr.responseText);
             }
         });
     });
+
+    //functions
+    function initializeSubmissions(model) {
+        $.ajax({
+            type: "post",
+            url: "Functions/getPendingSubmissions",
+            data: model,
+            success: function (data) {
+                 return data;
+            },
+            error: function (xhs) {
+                alert(xhs.responseText);
+            }
+        });
+    }
 });

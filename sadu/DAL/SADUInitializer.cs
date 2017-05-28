@@ -1,4 +1,5 @@
 ﻿using sadu.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Drawing;
@@ -30,11 +31,11 @@ namespace sadu.DAL
 
             var submissions = new List<Submission>
             {
-                new Submission{title="Documents", description="Submit these documents"},
-                new Submission{title="Documents2", description="Submit these documents"},
-                new Submission{title="Documents3", description="Submit these documents"},
-                new Submission{title="Documents4", description="Submit these documents"},
-                new Submission{title="Documents5", description="Submit these documents"}
+                new Submission{title="Documents", description="Submit these documents", date_created = DateTime.Now, date_submitted = null, approved = false},
+                new Submission{title="Documents2", description="Submit these documents", date_created = DateTime.Now, date_submitted = null, approved = false},
+                new Submission{title="Documents3", description="Submit these documents", date_created = DateTime.Now, date_submitted = null, approved = false},
+                new Submission{title="Documents4", description="Submit these documents", date_created = DateTime.Now, date_submitted = null, approved = false},
+                new Submission{title="Documents5", description="Submit these documents", date_created = DateTime.Now, date_submitted = null, approved = false}
             };
 
             var images = new List<OrganizationImage>

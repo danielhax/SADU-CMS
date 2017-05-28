@@ -1,3 +1,16 @@
-﻿.card-image img{
+﻿.body-content{
+    height: inherit;
+}
+.card-image img{
     max-width: 200px;
+}
+
+.no-pending-submissions-msg{
+    height: inherit;
+}
+
+.no-pending-submissions-msg p {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }

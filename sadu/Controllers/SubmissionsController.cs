@@ -14,11 +14,22 @@ namespace sadu.Controllers
     public class SubmissionsController : Controller
     {
         private SADUContext db = new SADUContext();
-
-        // GET: Submissions
-        public ActionResult Index()
+        
+        [ChildActionOnly]
+        public List<Submission> GetPendingSubmissions(List<Organization> organizations)
         {
-            return View(db.Submissions.ToList());
+            List<Submission> submissions = new List<Submission>();
+            //loop through Model which contains each organization of the current user
+            foreach (var org in organizations)
+            {
+                //loop through submissions of each org
+                foreach (var sub in org.Pending_Submissions)
+                {
+                    submissions.Add(sub);
+                }
+            }
+
+            return submissions;
         }
 
         // GET: Submissions/Details/5
@@ -47,7 +58,7 @@ namespace sadu.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,title,description")] Submission submission)
+        public ActionResult Create([Bind(Include = "Id,title,description,date_created,date_submitted,approved")] Submission submission)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +90,7 @@ namespace sadu.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,title,description")] Submission submission)
+        public ActionResult Edit([Bind(Include = "Id,title,description,date_created,date_submitted,approved")] Submission submission)
         {
             if (ModelState.IsValid)
             {
