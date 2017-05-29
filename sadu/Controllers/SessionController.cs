@@ -8,7 +8,6 @@ namespace sadu.Controllers
 {
     public class SessionController : Controller
     {
-        // GET: Login
         public ActionResult Index()
         {
             if (Session["username"] == null)
@@ -17,12 +16,12 @@ namespace sadu.Controllers
             }
             else
             {
-                return RedirectToAction("Index","Users");
+                return RedirectToAction("Index", "Users");
             }
         }
 
         [HttpPost]
-        public ActionResult LoginRequest(String username, String password)
+        public ActionResult Login(String username, String password)
         {
 
             SADUContext db = new SADUContext();
@@ -43,11 +42,25 @@ namespace sadu.Controllers
                     System.Web.HttpContext.Current.Session["organizations"] = user.Organizations.ToList();
 
 
-                return RedirectToAction("Index","Users");
+                return RedirectToAction("Index", "Users");
             }
             else
             {
                 return Json(false);
+            }
+
+        }
+
+        public ActionResult Logout(bool validRequest = false)
+        {
+            if (validRequest)
+            {
+                Session.Abandon();
+                return RedirectToAction("", "Session");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Users");
             }
 
         }

@@ -20,7 +20,7 @@ namespace sadu.Controllers
             organizations = (List<Organization>)Session["organizations"];
 
             if (Session["username"] == null)
-                return RedirectToAction("", "Login");
+                return RedirectToAction("", "Session");
             else
             {
                 ////if user is admin run this
@@ -30,20 +30,6 @@ namespace sadu.Controllers
                 else
                     return View(s.GetPendingSubmissions(organizations));
 
-            }
-
-        }
-        
-        public ActionResult Logout(bool validRequest = false)
-        {
-            if (validRequest)
-            {
-                Session.Abandon();
-                return RedirectToAction("", "Session");
-            }
-            else
-            {
-                return Index();
             }
 
         }

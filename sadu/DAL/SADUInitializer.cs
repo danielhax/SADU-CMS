@@ -1,8 +1,6 @@
 ﻿using sadu.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Drawing;
 using System.IO;
 
 namespace sadu.DAL
