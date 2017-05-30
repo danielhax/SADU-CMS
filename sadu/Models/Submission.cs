@@ -10,11 +10,9 @@ namespace sadu.Models
         public int Id { get; set; }
         [Required]
         public String title { get; set; }
-        public String description { get; set; }
-        [Column(TypeName = "DateTime2")]
-        public DateTime date_created { get; set; }
-        [Column(TypeName = "DateTime2")]
-        public DateTime? date_submitted { get; set; }
+        public String details { get; set; }
+        public String date_created { get; set; }
+        public String date_submitted { get; set; }
         public bool approved { get; set; }
         [Required]
         public virtual Organization Organization { get; set; }

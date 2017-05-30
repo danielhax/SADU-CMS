@@ -1,6 +1,7 @@
 ﻿using sadu.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 namespace sadu.DAL
@@ -29,11 +30,11 @@ namespace sadu.DAL
 
             var submissions = new List<Submission>
             {
-                new Submission{title="Documents", description="Submit these documents", date_created = DateTime.Now, date_submitted = null, approved = false},
-                new Submission{title="Documents2", description="Submit these documents", date_created = DateTime.Now, date_submitted = null, approved = false},
-                new Submission{title="Documents3", description="Submit these documents", date_created = DateTime.Now, date_submitted = null, approved = false},
-                new Submission{title="Documents4", description="Submit these documents", date_created = DateTime.Now, date_submitted = null, approved = false},
-                new Submission{title="Documents5", description="Submit these documents", date_created = DateTime.Now, date_submitted = null, approved = false}
+                new Submission{title="Documents", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_submitted = null, approved = false},
+                new Submission{title="Documents2", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_submitted = null, approved = false},
+                new Submission{title="Documents3", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_submitted = null, approved = false},
+                new Submission{title="Documents4", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_submitted = null, approved = false},
+                new Submission{title="Documents5", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_submitted = null, approved = false}
             };
 
             var images = new List<OrganizationImage>
