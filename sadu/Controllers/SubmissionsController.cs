@@ -14,10 +14,12 @@ namespace sadu.Controllers
     public class SubmissionsController : Controller
     {
         private SADUContext db = new SADUContext();
-        
-        [ChildActionOnly]
-        public List<Submission> GetPendingSubmissions(List<Organization> organizations)
+        private List<Organization> organizations;
+
+        public PartialViewResult GetSubmissions()
         {
+            organizations = (List<Organization>)System.Web.HttpContext.Current.Session["organizations"];
+
             List<Submission> submissions = new List<Submission>();
             //loop through Model which contains each organization of the current user
             foreach (var org in organizations)
@@ -29,7 +31,7 @@ namespace sadu.Controllers
                 }
             }
 
-            return submissions;
+            return PartialView("~/Views/Shared/_Submissions.cshtml", submissions);
         }
 
         // GET: Submissions/Details/5
@@ -48,26 +50,25 @@ namespace sadu.Controllers
         }
 
         // GET: Submissions/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: Submissions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,title,description,date_created,date_submitted,approved")] Submission submission)
+        public ActionResult Create([Bind(Include = "title,description,date_created,Organization")] Submission submission)
         {
-            if (ModelState.IsValid)
-            {
-                db.Submissions.Add(submission);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            //if (ModelState.IsValid)
+            //{
+            //    db.Submissions.Add(submission);
+            //    db.SaveChanges();
+            //}
 
-            return View(submission);
+            return Json(submission);
         }
 
         // GET: Submissions/Edit/5

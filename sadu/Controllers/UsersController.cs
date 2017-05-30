@@ -12,23 +12,21 @@ namespace sadu.Controllers
     public class UsersController : Controller
     {
         private SADUContext db = new SADUContext();
-        private List<Organization> organizations;
         private SubmissionsController s = new SubmissionsController();
         
         public ActionResult Index()
         {
-            organizations = (List<Organization>)Session["organizations"];
 
-            if (Session["username"] == null)
+            if (System.Web.HttpContext.Current.Session["username"] == null)
                 return RedirectToAction("", "Session");
             else
             {
                 ////if user is admin run this
                 if ((bool)System.Web.HttpContext.Current.Session["isAdmin"])
-                    return View("Admin", s.GetPendingSubmissions(organizations));
+                    return View("Admin");
                 ////if user is not an admin run this
                 else
-                    return View(s.GetPendingSubmissions(organizations));
+                    return View();
 
             }
 

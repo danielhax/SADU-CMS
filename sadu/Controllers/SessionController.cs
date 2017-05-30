@@ -41,8 +41,7 @@ namespace sadu.Controllers
                 else
                     System.Web.HttpContext.Current.Session["organizations"] = user.Organizations.ToList();
 
-
-                return RedirectToAction("Index", "Users");
+                return Json(Url.Action("Index", "Users"));
             }
             else
             {
