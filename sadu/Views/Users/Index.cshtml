@@ -1,96 +1,48 @@
-﻿@using sadu.Models
-@model IEnumerable<sadu.Models.Submission>
+﻿@model IEnumerable<sadu.Models.Submission>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<Submission> submission = Model.ToList();
 }
 
 <h3>Pending Submissions</h3>
 
-@for (var i = 0; i < submission.Count(); i++)
-{
+<div class="submissions-div">
+    @if (Model.Count() == 0)
+    {
+        <div class="no-pending-submissions-msg">
+            <p>No pending submissions.</p>
+        </div>
+    }
+
+
+    @for (var i = 0; i < Model.Count();)
+    {
         <div class="row">
+            @*2 columns per row*@
             @for (var j = 0; j < 2; j++, i++)
             {
-                <div class="col col-sm-6">
-                    @if (i >= submission.Count())
-                    {
-                        break;
-                    }
+                if (i >= Model.Count())
+                {
+                    break;
+                }
+                <div class="col col-sm-6 cardDiv">
                     <div class="card">
-                        <div class="card-image logo">
-                            <img src="@(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + Url.Content("~/assets/") + Model.ElementAt(i).Organization.OrganizationImage.Image)" alt="alternate text" />
+                        <h4 class="header">@Model.ElementAt(i).title</h4>
+                        <div class="content">
+                            <div class="card-image">
+                                <img src="@(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + Url.Content("~/assets/") + Model.ElementAt(i).Organization.OrganizationImage.Image)" alt="alternate text" />
+                            </div>
+                            <div class="card-content">
+                                <p class="card-text">@Model.ElementAt(i).date_created</p>
+                            </div>
                         </div>
-                        <h4>@Model.ElementAt(i).title</h4>
                     </div>
                 </div>
             }
-
+                
         </div>
 
-}
+    }
 
-@*@foreach (var item in Model){
-    <div class="row">
-        <div class="col col-sm-6">
-            <div class="card">
-                <div class="card-image logo">
-                    <img src="@(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + Url.Content("~/Assets/") + item.Organization.OrganizationImage.Image)" alt="Alternate Text" />
-                </div>
-                <h4>@item.title</h4>
-            </div>
-        </div>
-    </div>
-}*@
-
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.username)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.firstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.isAdmin)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.firstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isAdmin)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>*@
+</div>

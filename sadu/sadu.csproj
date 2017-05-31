@@ -149,7 +149,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\Functions.cs" />
+    <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SubmissionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAL\SADUContext.cs" />
@@ -168,7 +169,17 @@
     <Content Include="Assets\scc.png" />
     <Content Include="Assets\jpcs.jpg" />
     <Content Include="Assets\acm.png" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom.css" />
+    <Content Include="Content\jquery.datetimepicker.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <None Include="Scripts\jquery-2.2.4.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.4.js" />
+    <Content Include="Scripts\jquery-2.2.4.min.js" />
+    <Content Include="Scripts\Plugins\jquery.datetimepicker.full.min.js" />
     <Content Include="template_assets\css\animate.min.css" />
     <Content Include="template_assets\css\bootstrap.min.css" />
     <Content Include="template_assets\css\demo.css" />
@@ -203,11 +214,8 @@
     <Content Include="template_assets\js\demo.js" />
     <Content Include="template_assets\js\jquery-1.10.2.js" />
     <Content Include="template_assets\js\light-bootstrap-dashboard.js" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Login.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
@@ -247,11 +255,18 @@
     <Content Include="template_assets\sass\lbd\_typography.scss" />
     <Content Include="template_assets\sass\lbd\_variables.scss" />
     <Content Include="template_assets\sass\light-bootstrap-dashboard.scss" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom\custom.js" />
     <Content Include="Scripts\Custom\requests.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-2.2.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -274,7 +289,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout_old.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Session\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
@@ -286,24 +301,13 @@
     <Content Include="Views\Submissions\Edit.cshtml" />
     <Content Include="Views\Submissions\Index.cshtml" />
     <Content Include="Views\Users\Admin.cshtml" />
+    <Content Include="Views\Shared\_Submissions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

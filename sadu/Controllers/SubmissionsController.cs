@@ -14,11 +14,24 @@ namespace sadu.Controllers
     public class SubmissionsController : Controller
     {
         private SADUContext db = new SADUContext();
+        private List<Organization> organizations;
 
-        // GET: Submissions
-        public ActionResult Index()
+        public PartialViewResult GetSubmissions()
         {
-            return View(db.Submissions.ToList());
+            organizations = (List<Organization>)System.Web.HttpContext.Current.Session["organizations"];
+
+            List<Submission> submissions = new List<Submission>();
+            //loop through Model which contains each organization of the current user
+            foreach (var org in organizations)
+            {
+                //loop through submissions of each org
+                foreach (var sub in org.Pending_Submissions)
+                {
+                    submissions.Add(sub);
+                }
+            }
+
+            return PartialView("~/Views/Shared/_Submissions.cshtml", submissions);
         }
 
         // GET: Submissions/Details/5
@@ -37,26 +50,24 @@ namespace sadu.Controllers
         }
 
         // GET: Submissions/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: Submissions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,title,description")] Submission submission)
+        public ActionResult Create(List<String> data)
         {
-            if (ModelState.IsValid)
-            {
-                db.Submissions.Add(submission);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            //if (ModelState.IsValid)
+            //{
+            //    db.Submissions.Add(submission);
+            //    db.SaveChanges();
+            //}
 
-            return View(submission);
+            return Json(data);
         }
 
         // GET: Submissions/Edit/5
@@ -79,7 +90,7 @@ namespace sadu.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,title,description")] Submission submission)
+        public ActionResult Edit([Bind(Include = "Id,title,description,date_created,date_submitted,approved")] Submission submission)
         {
             if (ModelState.IsValid)
             {

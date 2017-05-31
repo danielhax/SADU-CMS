@@ -11,12 +11,14 @@ namespace sadu
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+            routes.MapMvcAttributeRoutes();
+
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Login",
+                name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Session", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

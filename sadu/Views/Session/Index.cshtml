@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/Login.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body id="loginBody">
+
+    <div class="container">
+        <div class="card card-container">
+            <h3>Login</h3>
+            <form class="form-signin" id="loginForm">
+                <div id="loginAlert" class="hidden alert" role="alert"></div>
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" id="loginBtn" name="loginBtn" type="submit">Sign in</button>
+            </form><!-- /form -->
+        </div><!-- /card-container -->
+    </div>
+
+
+    <script src="~/Scripts/jquery-2.2.4.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/Custom/requests.js"></script>
+</body>
+</html>
