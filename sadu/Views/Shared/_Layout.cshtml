@@ -28,7 +28,7 @@
     <link href="~/template_assets/css/demo.css" rel="stylesheet" />-->
 
     <script src="~/Scripts/jquery-2.2.4.js"></script>
-    <script type="text/javascript" src="~/Scripts/Custom/requests.js"></script>
+
 
 
     <!--     Fonts and icons     -->
@@ -166,7 +166,6 @@
             <div class="modal-dialog">
 
                 <form id="createSubmissionForm">
-                    @Html.AntiForgeryToken();
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
@@ -176,21 +175,20 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="submissionOrganization">Organization: </label>
-                                <select name="submissionOrganization" id="submissionOrganization">
-                                    <option></option>
+                                <select class="form-control" name="submissionOrganization" id="submissionOrganization">
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="title">Title: </label>
-                                <input type="text" name="submissionTitle" id="submissionTitle" />
+                                <input type="text" class="form-control" name="submissionTitle" id="submissionTitle" />
                             </div>
                             <div class="form-group">
                                 <label for="details">Details: </label>
-                                <input type="text" name="submissionDetails" id="submissionDetails" />
+                                <textarea rows="5" class="form-control" name="submissionDetails" id="submissionDetails"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="deadlinePicker">Deadline: </label>
-                                <input type="text" name="deadlinePicker" id="deadlinePicker" />
+                                <input type="text" class="form-control" name="deadlinePicker" id="deadlinePicker" />
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -223,5 +221,6 @@
 
 <!-- Custom JS Files-->
 <script src="~/Scripts/Custom/custom.js"></script>
+<script src="~/Scripts/Custom/requests.js"></script>
 
 </html>

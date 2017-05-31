@@ -59,8 +59,7 @@ namespace sadu.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "title,description,date_created,Organization")] Submission submission)
+        public ActionResult Create(List<String> data)
         {
             //if (ModelState.IsValid)
             //{
@@ -68,7 +67,7 @@ namespace sadu.Controllers
             //    db.SaveChanges();
             //}
 
-            return Json(submission);
+            return Json(data);
         }
 
         // GET: Submissions/Edit/5

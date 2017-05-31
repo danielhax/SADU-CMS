@@ -3,7 +3,6 @@
     //submit on clicks
     $('#loginForm').submit(function (e) {
         e.preventDefault();
-        console.log('asd');
         $.ajax({
             type: "post",
             url: "Session/Login",
@@ -19,7 +18,7 @@
                 }
             },
             error: function (xhr) {
-                alert("Error" + xhr.responseText);
+                alert("Login Error" + xhr.responseText);
             }
         });
     });
@@ -27,8 +26,6 @@
     $('#createSubmissionForm').submit(function (e) {
         e.preventDefault();
         console.log("create submission request");
-
-        
 
         $.ajax({
             type: "post",
@@ -44,46 +41,31 @@
             }
         });
     });
-
-    //functions
-    function updateSubmissionsPartialView() {
-        $.ajax({
-            type: "get",
-            url: "Submissions/GetSubmissions",
-            success: function (partialView) {
-                $("#submissionPartial").html(partialView);
-            },
-            error: function (xhs) {
-                console.log(xhs.responseText);
-            }
-        });
-    }
-
-    //an object based on the model is needed to be able to be processed by the controller
-    function submissionObject(formData) {
-        var obj = new Object();
-        $.each(formData, function (index, item) {
-            switch (item.name) {
-                case "__RequestVerificationToken":
-                    obj.__RequestVerificationToken = item.value;
-                    break;
-                case "submissionOrganization":
-                    obj.Organization = item.value;
-                    break;
-                case "submissionTitle":
-                    obj.title = item.value;
-                    break;
-                case "submissionDetails":
-                    obj.details = item.value;
-                    break;
-                case "deadlinePicker":
-                    obj.date_created = item.value;
-                    break;
-                default:
-                    return null;
-            }
-        });
-
-        return obj;
-    }
 });
+
+//functions
+function updateSubmissionsPartialView() {
+    $.ajax({
+        type: "get",
+        url: "Submissions/GetSubmissions",
+        success: function (partialView) {
+            $("#submissionPartial").html(partialView);
+        },
+        error: function (xhs) {
+            console.log(xhs.responseText);
+        }
+    });
+}
+
+//an object based on the model is needed to be able to be processed by the controller
+function submissionObject(formData) {
+    console.log(formData);
+    var data = [];
+    $.each(formData, function (index, item) {
+        console.log(item.name + ": " + item.value);
+
+        data[item.name] = item.val;
+    });
+
+    return data;
+}

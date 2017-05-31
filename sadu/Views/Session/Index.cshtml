@@ -9,7 +9,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Login</title>
 
     <link href="~/Content/Site.css" rel="stylesheet" />
@@ -17,35 +16,17 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body id="loginBody">
-    @*<div id="loginBox">
-        <h2>Login Page</h2>
-        <form id="loginForm" action="@Url.Action("Login", "Session")" method="post">
-            <div id="loginAlert" class="hidden alert alert-danger" role="alert"></div>
-            <input type="text" id="username" class="form-control" placeholder="Username" required autofocus>
-            <input type="password" id="password" class="form-control" placeholder="Password" required>
-
-            <button type="submit" class="btn btn-primary" name="loginBtn" id="loginBtn">Login</button>
-        </form>
-    </div>*@
 
     <div class="container">
         <div class="card card-container">
             <h3>Login</h3>
-            <form class="form-signin" id="loginForm" method="post">
+            <form class="form-signin" id="loginForm">
                 <div id="loginAlert" class="hidden alert" role="alert"></div>
                 <span id="reauth-email" class="reauth-email"></span>
                 <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
                 <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-                @*<div id="remember" class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                </div>*@
                 <button class="btn btn-lg btn-primary btn-block btn-signin" id="loginBtn" name="loginBtn" type="submit">Sign in</button>
             </form><!-- /form -->
-            @*<a href="#" class="forgot-password">
-                Forgot the password?
-            </a>*@
         </div><!-- /card-container -->
     </div>
 

@@ -21,9 +21,13 @@ namespace sadu.Controllers
                 return RedirectToAction("", "Session");
             else
             {
+                List<String> organizationNames = new List<String>();
+
+                db.Organizations.ToList().ForEach(o => organizationNames.Add(o.name));
+
                 ////if user is admin run this
                 if ((bool)System.Web.HttpContext.Current.Session["isAdmin"])
-                    return View("Admin");
+                    return View("Admin", organizationNames);
                 ////if user is not an admin run this
                 else
                     return View();

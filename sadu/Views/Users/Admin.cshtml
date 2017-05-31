@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<String>
+@{
     ViewBag.Title = "Admin";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -17,14 +18,17 @@
 </div>
 
 <script>
-    $.ajax({
-        type: "get",
-        url: "Submissions/GetSubmissions",
-        success: function (partialView) {
-            $("#submissionPartial").html(partialView);
-        },
-        error: function (xhs) {
-            console.log(xhs.responseText);
-        }
+    //onload scripts
+
+    $(function () {
+        updateSubmissionsPartialView();
+
+        //populate select of add submission form of organization names
+        $.each(JSON.parse('@Html.Raw(Json.Encode(@Model))'), function (i, val) {
+            $("#submissionOrganization").append("<option>" + val + "</option>");
+        });
     });
+
+
 </script>
+

@@ -11,10 +11,10 @@ namespace sadu.Models
         [Required]
         public String title { get; set; }
         public String details { get; set; }
+        [Required]
         public String date_created { get; set; }
         public String date_submitted { get; set; }
         public bool approved { get; set; }
-        [Required]
         public virtual Organization Organization { get; set; }
         
     }
