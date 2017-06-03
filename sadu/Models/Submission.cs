@@ -7,6 +7,11 @@ namespace sadu.Models
 {
     public class Submission
     {
+        public Submission()
+        {
+            date_submitted = null;
+            approved = false;
+        }
         public int Id { get; set; }
         [Required]
         public String title { get; set; }

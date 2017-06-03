@@ -26,15 +26,20 @@
     $('#createSubmissionForm').submit(function (e) {
         e.preventDefault();
         console.log("create submission request");
-
+        console.log($(this).serialize());
         $.ajax({
             type: "post",
             url: "Submissions/Create",
-            data: submissionObject($(this).serializeArray()),
-            success: function (data) {
-                $("#createSubmissionModal").modal("toggle");
-                //updateSubmissionsPartialView();
-                console.log(data);
+            data: $(this).serializeArray(),
+            success: function (success) {
+                if (success) {
+                    $("#createSubmissionModal").modal("toggle");
+                    updateSubmissionsPartialView();
+                    console.log("succesx");
+                }
+                else {
+                    console.log("fail creation");
+                }
             },
             error: function (xhs) {
                 console.log("error" + xhs.responseText);
@@ -50,6 +55,7 @@ function updateSubmissionsPartialView() {
         url: "Submissions/GetSubmissions",
         success: function (partialView) {
             $("#submissionPartial").html(partialView);
+            console.log("view loaded");
         },
         error: function (xhs) {
             console.log(xhs.responseText);
@@ -62,8 +68,6 @@ function submissionObject(formData) {
     console.log(formData);
     var data = [];
     $.each(formData, function (index, item) {
-        console.log(item.name + ": " + item.value);
-
         data[item.name] = item.val;
     });
 

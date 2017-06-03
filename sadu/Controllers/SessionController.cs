@@ -36,9 +36,7 @@ namespace sadu.Controllers
                 System.Web.HttpContext.Current.Session["last_name"] = user.lastName;
                 System.Web.HttpContext.Current.Session["isAdmin"] = user.isAdmin;
 
-                if(user.isAdmin)
-                    System.Web.HttpContext.Current.Session["organizations"] = db.Organizations.ToList();
-                else
+                if(!user.isAdmin)
                     System.Web.HttpContext.Current.Session["organizations"] = user.Organizations.ToList();
 
                 return Json(Url.Action("Index", "Users"));
