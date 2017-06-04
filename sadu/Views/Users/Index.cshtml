@@ -8,41 +8,14 @@
 <h3>Pending Submissions</h3>
 
 <div class="submissions-div">
-    @if (Model.Count() == 0)
-    {
-        <div class="no-pending-submissions-msg">
-            <p>No pending submissions.</p>
-        </div>
-    }
-
-
-    @for (var i = 0; i < Model.Count();)
-    {
-        <div class="row">
-            @*2 columns per row*@
-            @for (var j = 0; j < 2; j++, i++)
-            {
-                if (i >= Model.Count())
-                {
-                    break;
-                }
-                <div class="col col-sm-6 cardDiv">
-                    <div class="card">
-                        <h4 class="header">@Model.ElementAt(i).title</h4>
-                        <div class="content">
-                            <div class="card-image">
-                                <img src="@(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + Url.Content("~/assets/") + Model.ElementAt(i).Organization.OrganizationImage.Image)" alt="alternate text" />
-                            </div>
-                            <div class="card-content">
-                                <p class="card-text">@Model.ElementAt(i).date_created</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-                
-        </div>
-
-    }
+    <div id="submissionPartial">
+    </div>
 
 </div>
+
+<script>
+    //load submission partial view
+    $(function () {
+        updateSubmissionsPartialView();
+    });
+</script>

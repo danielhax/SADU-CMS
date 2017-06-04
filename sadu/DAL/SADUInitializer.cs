@@ -30,11 +30,11 @@ namespace sadu.DAL
 
             var submissions = new List<Submission>
             {
-                new Submission{title="Documents", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
-                new Submission{title="Documents2", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
-                new Submission{title="Documents3", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
-                new Submission{title="Documents4", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
-                new Submission{title="Documents5", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)}
+                new Submission{title="Documents", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
+                new Submission{title="Documents2", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
+                new Submission{title="Documents3", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
+                new Submission{title="Documents4", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
+                new Submission{title="Documents5", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)}
             };
 
             var images = new List<OrganizationImage>

@@ -18,6 +18,7 @@ namespace sadu.Models
         public String details { get; set; }
         [Required]
         public String date_created { get; set; }
+        public String date_deadline { get; set; }
         public String date_submitted { get; set; }
         public bool approved { get; set; }
         public virtual Organization Organization { get; set; }

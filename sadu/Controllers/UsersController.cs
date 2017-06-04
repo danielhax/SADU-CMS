@@ -23,14 +23,19 @@ namespace sadu.Controllers
             {
                 List<String> organizationNames = new List<String>();
 
-                db.Organizations.ToList().ForEach(o => organizationNames.Add(o.name));
-
-                ////if user is admin run this
+                ////if user is admin run admin view
                 if ((bool)System.Web.HttpContext.Current.Session["isAdmin"])
+                {
+                    db.Organizations.ToList().ForEach(o => organizationNames.Add(o.name));
                     return View("Admin", organizationNames);
-                ////if user is not an admin run this
+                }
+
+                ////if user is not an admin run user view
                 else
+                {
                     return View();
+                }
+                    
 
             }
 

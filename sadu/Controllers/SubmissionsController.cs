@@ -6,6 +6,7 @@ using System.Net;
 using System.Web.Mvc;
 using sadu.DAL;
 using sadu.Models;
+using System.Globalization;
 
 namespace sadu.Controllers
 {
@@ -25,7 +26,10 @@ namespace sadu.Controllers
             if ((bool)Session["isAdmin"])
                 db.Organizations.ToList().ForEach(o => organizations.Add(o));
             else
-                db.Users.FirstOrDefault(u => u.username.Equals(Session["Username"])).Organizations.ToList();
+            {
+                var username = Session["username"].ToString();
+                organizations = db.Users.FirstOrDefault(u => u.username == username).Organizations.ToList();
+            }
 
             List<Submission> submissions = new List<Submission>();
             //loop through Model which contains each organization of the current user
@@ -48,7 +52,8 @@ namespace sadu.Controllers
             submission.Organization = db.Organizations.FirstOrDefault(o => o.name == submissionOrganization);
             submission.title = submissionTitle;
             submission.details = submissionDetails;
-            submission.date_created = submissionDeadline;
+            submission.date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture);
+            submission.date_deadline= submissionDeadline;
 
             try
             {
