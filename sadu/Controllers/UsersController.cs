@@ -13,66 +13,74 @@ namespace sadu.Controllers
     {
         private SADUContext db = new SADUContext();
         private SubmissionsController s = new SubmissionsController();
-        
+
         public ActionResult Index()
         {
 
-            if (System.Web.HttpContext.Current.Session["username"] == null)
-                return RedirectToAction("", "Session");
+            if (System.Web.HttpContext.Current.Session["email"] == null)
+                return RedirectToAction("Index", "Session");
             else
             {
                 List<String> organizationNames = new List<String>();
 
-                db.Organizations.ToList().ForEach(o => organizationNames.Add(o.name));
-
-                ////if user is admin run this
+                ////if user is admin run admin view
                 if ((bool)System.Web.HttpContext.Current.Session["isAdmin"])
+                {
+                    db.Organizations.ToList().ForEach(o => organizationNames.Add(o.name));
                     return View("Admin", organizationNames);
-                ////if user is not an admin run this
+                }
+
+                ////if user is not an admin run user view
                 else
+                {
                     return View();
+                }
+
 
             }
 
         }
-
-
-        // GET: Users/Details/5
-        public ActionResult Details(int? id)
+        [Route("users")]
+        public ActionResult UsersList()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
+            List<String> organizationsList = new List<String>();
+            db.Organizations.ToList().ForEach(o => organizationsList.Add(o.name));
+            return View(organizationsList);
         }
 
-        // GET: Users/Create
-        public ActionResult Create()
+        public PartialViewResult GetUsers()
         {
-            return View();
+            return PartialView("~/Views/Shared/_UsersTable.cshtml", db.Users.ToList());
         }
 
-        // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,username,password,firstName,lastName,isAdmin")] User user)
+        public ActionResult Create(String organization, String email, String firstName, String lastName, String password, bool isAdmin = false)
         {
-            if (ModelState.IsValid)
+            if (db.Users.ToList().FirstOrDefault(u => u.email == email) != null)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { success = false, Message = "E-mail address is already registered! Please use another e-mail address." });
             }
+            else
+            {
+                User user = new User();
+                user.email = email;
+                user.firstName = firstName;
+                user.lastName = lastName;
+                user.password = password;
+                user.isAdmin = isAdmin;
+                user.Organizations.Add(db.Organizations.ToList().Find(o => o.name == organization));
 
-            return View(user);
+                try
+                {
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return Json(new { success = true, Message = "User created" });
+                }
+                catch (Exception)
+                {
+                    return Json(new { success = false, Message = "Something went wrong while creating user" });
+                }
+            }
         }
 
         // GET: Users/Edit/5
@@ -106,6 +114,7 @@ namespace sadu.Controllers
             return View(user);
         }
 
+        [Route("delete")]
         // GET: Users/Delete/5
         public ActionResult Delete(int? id)
         {

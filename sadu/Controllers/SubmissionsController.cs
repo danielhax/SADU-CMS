@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using sadu.DAL;
 using sadu.Models;
+using System.Globalization;
 
 namespace sadu.Controllers
 {
@@ -15,10 +14,22 @@ namespace sadu.Controllers
     {
         private SADUContext db = new SADUContext();
         private List<Organization> organizations;
-
+        
         public PartialViewResult GetSubmissions()
         {
-            organizations = (List<Organization>)System.Web.HttpContext.Current.Session["organizations"];
+            /*
+             Always instantiate context every time partial view is update to get updated dataset
+             */
+            db = new SADUContext();
+            organizations = new List<Organization>();
+
+            if ((bool)Session["isAdmin"])
+                db.Organizations.ToList().ForEach(o => organizations.Add(o));
+            else
+            {
+                var username = Session["email"].ToString();
+                organizations = db.Users.FirstOrDefault(u => u.email == username).Organizations.ToList();
+            }
 
             List<Submission> submissions = new List<Submission>();
             //loop through Model which contains each organization of the current user
@@ -34,40 +45,26 @@ namespace sadu.Controllers
             return PartialView("~/Views/Shared/_Submissions.cshtml", submissions);
         }
 
-        // GET: Submissions/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Submission submission = db.Submissions.Find(id);
-            if (submission == null)
-            {
-                return HttpNotFound();
-            }
-            return View(submission);
-        }
-
-        // GET: Submissions/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        // POST: Submissions/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(List<String> data)
+        public ActionResult Create(String submissionOrganization, String submissionTitle, String submissionDetails, String submissionDeadline)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    db.Submissions.Add(submission);
-            //    db.SaveChanges();
-            //}
+            Submission submission = new Submission();
+            submission.Organization = db.Organizations.FirstOrDefault(o => o.name == submissionOrganization);
+            submission.title = submissionTitle;
+            submission.details = submissionDetails;
+            submission.date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture);
+            submission.date_deadline= submissionDeadline;
 
-            return Json(data);
+            try
+            {
+                db.Submissions.Add(submission);
+                db.SaveChanges();
+                return Json(new { success = true, Message = "Submission created" });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, Message = "Something went wrong while creating submission" });
+            }
         }
 
         // GET: Submissions/Edit/5

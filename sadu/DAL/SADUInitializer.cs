@@ -15,26 +15,26 @@ namespace sadu.DAL
         protected override void Seed(SADUContext context)
         {
             //Declare sample orgs first so it can be used in creating users, otherwise the orgs won't exist
-            Organization org1 = new Organization { name = "SSC" },
-                org2 = new Organization { name = "ACM" },
-                org3 = new Organization { name = "JPCS" };
+            Organization org1 = new Organization { name = "ACM" },
+                org2 = new Organization { name = "JPCS" },
+                org3 = new Organization { name = "SCC" };
 
             var users = new List<User>
             {
-                new User{username = "johndoe", password = "johnd", firstName = "John", lastName = "Doe", isAdmin = false,},
-                new User{username = "mariadb", password = "mariadb", firstName = "Maria", lastName = "Debeaux", isAdmin = false},
-                new User{username = "keysersoz", password = "keysoz", firstName = "Keyser", lastName = "Soze", isAdmin = false},
-                new User{username = "jeanbaljean", password = "jbj1234", firstName = "Jean", lastName = "Baljean", isAdmin = false},
-                new User{username = "admin", password = "admin", firstName = "Adminis", lastName = "Traitor", isAdmin = true, Organizations = null},
+                new User{email = "johndoe@gmail.com", password = "johnd", firstName = "John", lastName = "Doe", isAdmin = false,},
+                new User{email = "mariadb@gmail.com", password = "mariadb", firstName = "Maria", lastName = "Debeaux", isAdmin = false},
+                new User{email = "keysersoz@gmail.com", password = "keysoz", firstName = "Keyser", lastName = "Soze", isAdmin = false},
+                new User{email = "jeanbaljean@gmail.com", password = "jbj1234", firstName = "Jean", lastName = "Baljean", isAdmin = false},
+                new User{email = "admin@gmail.com", password = "admin", firstName = "Adminis", lastName = "Traitor", isAdmin = true, Organizations = null},
             };
 
             var submissions = new List<Submission>
             {
-                new Submission{title="Documents", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_submitted = null, approved = false},
-                new Submission{title="Documents2", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_submitted = null, approved = false},
-                new Submission{title="Documents3", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_submitted = null, approved = false},
-                new Submission{title="Documents4", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_submitted = null, approved = false},
-                new Submission{title="Documents5", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_submitted = null, approved = false}
+                new Submission{title="Documents", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
+                new Submission{title="Documents2", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
+                new Submission{title="Documents3", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
+                new Submission{title="Documents4", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
+                new Submission{title="Documents5", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)}
             };
 
             var images = new List<OrganizationImage>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace sadu.Models
 {
@@ -13,8 +14,11 @@ namespace sadu.Models
         }
         
         public int Id { get; set; }
+
         [Required]
-        public String username { get; set; }
+        [StringLength(100)]
+        [Index(IsUnique=true)]
+        public String email { get; set; }
         [Required]
         public String password { get; set; }
         [Required]

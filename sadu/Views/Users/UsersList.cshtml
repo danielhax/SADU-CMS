@@ -1,0 +1,23 @@
+﻿@model List<String>
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3>Users List</h3>
+
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#createUserModal"><i class="pe-7s-add-user"> </i>Create User</button>
+
+<div id="usersTable"></div>
+
+<script type="text/javascript">
+    $(function () {
+        //students table partial view
+        updateUsersTable();
+
+        //populate select of add submission form of organization names
+        $.each(JSON.parse('@Html.Raw(Json.Encode(@Model))'), function (i, val) {
+            $("#organizationsList").append("<option>" + val + "</option>");
+        });
+    });
+</script>

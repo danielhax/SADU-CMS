@@ -8,9 +8,10 @@ namespace sadu.Controllers
 {
     public class SessionController : Controller
     {
+        [Route("login")]
         public ActionResult Index()
         {
-            if (Session["username"] == null)
+            if (Session["email"] == null)
             {
                 return View();
             }
@@ -21,25 +22,23 @@ namespace sadu.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(String username, String password)
+        public ActionResult Login(String email, String password)
         {
 
             SADUContext db = new SADUContext();
 
             //find first instance of matching username and password, returns null if no match
-            User user = db.Users.FirstOrDefault(u => u.username == username && u.password == password);
+            User user = db.Users.FirstOrDefault(u => u.email == email && u.password == password);
 
             if (user != null)
             {
-                System.Web.HttpContext.Current.Session["username"] = user.username;
+                System.Web.HttpContext.Current.Session["email"] = user.email;
                 System.Web.HttpContext.Current.Session["first_name"] = user.firstName;
                 System.Web.HttpContext.Current.Session["last_name"] = user.lastName;
                 System.Web.HttpContext.Current.Session["isAdmin"] = user.isAdmin;
-
-                if(user.isAdmin)
-                    System.Web.HttpContext.Current.Session["organizations"] = db.Organizations.ToList();
-                else
-                    System.Web.HttpContext.Current.Session["organizations"] = user.Organizations.ToList();
+                //pre-list all organization object of current user. admin only needs organization names (see userscontroller)
+                //if(!user.isAdmin)
+                //    System.Web.HttpContext.Current.Session["organizations"] = user.Organizations.ToList();
 
                 return Json(Url.Action("Index", "Users"));
             }
@@ -50,12 +49,13 @@ namespace sadu.Controllers
 
         }
 
+        [Route("logout")]
         public ActionResult Logout(bool validRequest = false)
         {
             if (validRequest)
             {
                 Session.Abandon();
-                return RedirectToAction("", "Session");
+                return RedirectToAction("Index", "Session");
             }
             else
             {

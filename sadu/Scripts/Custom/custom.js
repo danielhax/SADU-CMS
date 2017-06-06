@@ -1,5 +1,5 @@
 ﻿$(function () {
-    $('#deadlinePicker').datetimepicker({ format: 'm/d/Y H:m' });
+    $('#submissionDeadline').datetimepicker({ format: 'm/d/Y H:m' });
 
     /*
         ACTION LISTENERS
