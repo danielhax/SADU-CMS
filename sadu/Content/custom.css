@@ -1,9 +1,6 @@
 ﻿.body-content{
     height: inherit;
 }
-.card-image img{
-    max-width: 200px;
-}
 
 .no-pending-submissions-msg{
     height: inherit;
@@ -13,4 +10,18 @@
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+}
+
+/*
+    Submission cards
+*/
+
+.card-image img {
+    display: block;
+    margin: 0 auto;
+    max-width: 200px;
+}
+
+span.card-label{
+    font-weight: bold;
 }

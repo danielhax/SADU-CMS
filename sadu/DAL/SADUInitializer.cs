@@ -21,11 +21,11 @@ namespace sadu.DAL
 
             var users = new List<User>
             {
-                new User{username = "johndoe", password = "johnd", firstName = "John", lastName = "Doe", isAdmin = false,},
-                new User{username = "mariadb", password = "mariadb", firstName = "Maria", lastName = "Debeaux", isAdmin = false},
-                new User{username = "keysersoz", password = "keysoz", firstName = "Keyser", lastName = "Soze", isAdmin = false},
-                new User{username = "jeanbaljean", password = "jbj1234", firstName = "Jean", lastName = "Baljean", isAdmin = false},
-                new User{username = "admin", password = "admin", firstName = "Adminis", lastName = "Traitor", isAdmin = true, Organizations = null},
+                new User{email = "johndoe@gmail.com", password = "johnd", firstName = "John", lastName = "Doe", isAdmin = false,},
+                new User{email = "mariadb@gmail.com", password = "mariadb", firstName = "Maria", lastName = "Debeaux", isAdmin = false},
+                new User{email = "keysersoz@gmail.com", password = "keysoz", firstName = "Keyser", lastName = "Soze", isAdmin = false},
+                new User{email = "jeanbaljean@gmail.com", password = "jbj1234", firstName = "Jean", lastName = "Baljean", isAdmin = false},
+                new User{email = "admin@gmail.com", password = "admin", firstName = "Adminis", lastName = "Traitor", isAdmin = true, Organizations = null},
             };
 
             var submissions = new List<Submission>

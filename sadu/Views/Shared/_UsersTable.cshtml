@@ -1,0 +1,50 @@
+﻿@model IEnumerable<sadu.Models.User>
+
+<div class="col-md-12">
+    <div class="card card-plain">
+        <div class="content table-responsive table-full-width">
+            <table class="table table-hover">
+                <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>E-mail Address</th>
+                <th>Admin</th>
+                <th>Actions</th>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        @* if it's the current user; don't add in user's table*@
+                    if (user.email == (string)Session["email"])
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td>@user.firstName @user.lastName</td>
+                            <td>@user.email</td>
+                            @if (@user.isAdmin)
+                            {
+                                <td style="color: green;">Yes</td>
+                            }
+                            else
+                            {
+                                <td style="color: red;">No</td>
+                            }
+                            <td>
+                                <button type="submit" class="btn btn-danger" value="@user.Id" onclick="deleteUser(this);" data-toggle="tooltip" data-placement="top" title="Delete User">
+                                    <i class="pe-7s-delete-user"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+

@@ -5,7 +5,7 @@
     <link rel="icon" type="image/png" href="template_assets/img/favicon.ico" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Light Bootstrap Dashboard by Creative Tim</title>
+    <title>SADU File Management System</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -52,37 +52,34 @@
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a href="@Url.Action("Index")" class="simple-text">
-                        @Session["username"]
+                        @Session["first_name"]
                     </a>
                 </div>
 
                 <ul class="nav">
                     <li class="active">
-                        <a href="dashboard.html">
-                            <i class="pe-7s-graph"></i>
+                        <a href="@Url.Action("Index", "Users")">
+                            <i class="pe-7s-home"></i>
                             <p>Dashboard</p>
                         </a>
                     </li>
                     <li>
-                        <a href="user.html">
-                            <i class="pe-7s-user"></i>
-
-                            @if ((bool)Session["isAdmin"])
-                            {
-                                <p>
-                                    Users
-                                </p>
-                            }
-                            else
-                            {
-                                <p>
-                                    Profile
-                                </p>
-                            }
-                        </a>
+                        @if ((bool)Session["isAdmin"])
+                        {
+                            <a href="@Url.Action("UsersList", "Users")">
+                                <i class="pe-7s-user"></i>
+                                <p>Users</p>
+                            </a>
+                        }
+                        else
+                        {
+                            <p>
+                                Profile
+                            </p>
+                        }
                     </li>
                     <li>
-                        <a href="user.html">
+                        <a href="@Url.Action("Delete", "Users")">
                             <i class="pe-7s-culture"></i>
                             <p>Organizations</p>
                         </a>
@@ -119,7 +116,7 @@
                             </li>
 
                             <li>
-                                <a href="">
+                                <a href="#">
                                     <i class="fa fa-search"></i>
                                     <p class="hidden-lg hidden-md">Search</p>
                                 </a>
@@ -214,6 +211,51 @@
         </div>
     </div>
     <!-- Create Submission Modal -->
+    <!-- Create User Modal -->
+    <div id="createUserModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <form id="createUserForm">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Create New Submission</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="submissionOrganization">Organization: </label>
+                            <select class="form-control" name="organization" id="organizationsList"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="title">E-mail Address </label>
+                            <input type="email" class="form-control" name="email" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="details">First Name: </label>
+                            <input type="text" class="form-control" name="firstName" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="details">Last Name: </label>
+                            <input type="text" class="form-control" name="lastName" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="details">Password: </label>
+                            <input type="password" class="form-control" name="password" required />
+                        </div>
+                        <label class="checkbox">
+                            <input type="checkbox" name="isAdmin" value="true" data-toggle="checkbox"><span>Admin</span>
+                        </label>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Create User Modal -->
 </body>
 
 <!--   Core JS Files   -->

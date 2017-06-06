@@ -27,8 +27,8 @@ namespace sadu.Controllers
                 db.Organizations.ToList().ForEach(o => organizations.Add(o));
             else
             {
-                var username = Session["username"].ToString();
-                organizations = db.Users.FirstOrDefault(u => u.username == username).Organizations.ToList();
+                var username = Session["email"].ToString();
+                organizations = db.Users.FirstOrDefault(u => u.email == username).Organizations.ToList();
             }
 
             List<Submission> submissions = new List<Submission>();
@@ -59,11 +59,11 @@ namespace sadu.Controllers
             {
                 db.Submissions.Add(submission);
                 db.SaveChanges();
-                return Json(true);
+                return Json(new { success = true, Message = "Submission created" });
             }
             catch (Exception)
             {
-                return Json(false);
+                return Json(new { success = false, Message = "Something went wrong while creating submission" });
             }
         }
 

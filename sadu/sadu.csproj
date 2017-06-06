@@ -149,7 +149,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\Functions.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SubmissionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -292,16 +291,13 @@
     <Content Include="Views\Session\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\UsersList.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Submissions\Create.cshtml" />
-    <Content Include="Views\Submissions\Delete.cshtml" />
-    <Content Include="Views\Submissions\Details.cshtml" />
-    <Content Include="Views\Submissions\Edit.cshtml" />
-    <Content Include="Views\Submissions\Index.cshtml" />
     <Content Include="Views\Users\Admin.cshtml" />
     <Content Include="Views\Shared\_Submissions.cshtml" />
+    <Content Include="Views\View.cshtml" />
+    <Content Include="Views\Shared\_UsersTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
