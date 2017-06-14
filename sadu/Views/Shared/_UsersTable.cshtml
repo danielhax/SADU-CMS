@@ -8,6 +8,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>E-mail Address</th>
+                <th>Organization</th>
                 <th>Admin</th>
                 <th>Actions</th>
                 </thead>
@@ -25,6 +26,7 @@
                             <td>@user.Id</td>
                             <td>@user.firstName @user.lastName</td>
                             <td>@user.email</td>
+                            <td>@user.Organization.name</td>
                             @if (@user.isAdmin)
                             {
                                 <td style="color: green;">Yes</td>
@@ -34,8 +36,8 @@
                                 <td style="color: red;">No</td>
                             }
                             <td>
-                                <button type="submit" class="btn btn-danger" value="@user.Id" onclick="deleteUser(this);" data-toggle="tooltip" data-placement="top" title="Delete User">
-                                    <i class="pe-7s-delete-user"></i>
+                                <button type="submit" class="btn btn-danger" value="@user.Id" onclick="deleteUser(this.value);" data-toggle="tooltip" data-placement="top" title="Delete User">
+                                    <i class="pe-7s-trash"></i>
                                 </button>
                             </td>
                         </tr>

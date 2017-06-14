@@ -7,18 +7,29 @@
             type: "post",
             url: "Session/Login",
             data: $(this).serialize(),
+            beforeSend: function () {
+                //show progress bar while processing login
+                $("#loginBtn").toggle();
+                $("#loginForm .progress").removeClass("hidden");
+            },
             success: function (data) {
-                if (!data) {
+                if (data) {
+                    window.location.href = data;
+                }
+                else {
                     $('#loginAlert').removeClass('hidden');
                     $('#loginAlert').addClass('alert-danger');
                     $('#loginAlert').text("User not found!");
-                }
-                else {
-                    window.location.href = data;
+                    $("#loginForm .progress").addClass("hidden");
+                    $("#loginBtn").toggle();
                 }
             },
             error: function (xhr) {
-                alert("Login Error" + xhr.responseText);
+                $('#loginAlert').removeClass('hidden');
+                $('#loginAlert').addClass('alert-danger');
+                $('#loginAlert').text("Something went wrong.");
+                $("#loginForm .progress").addClass("hidden");
+                $("#loginBtn").toggle();
             }
         });
     });
@@ -76,8 +87,11 @@
 function updateSubmissionsPartialView() {
     $.ajax({
         type: "get",
-        url: "Submissions/GetSubmissions",
+        url: "Submissions/GetSubmittals",
         success: function (partialView) {
+            if (partialView["Message"]) {
+                console.log(partialView.Message)
+            }
             $("#submissionPartial").html(partialView);
             console.log("view loaded");
         },
@@ -101,9 +115,75 @@ function updateUsersTable() {
     });
 }
 
+function updateUploadsPartialView(submittalId) {
+    $.ajax({
+        type: "get",
+        url: "Submissions/GetUploads/" + submittalId,
+        success: function (partialView) {
+            if (partialView["Message"]) {
+                console.log(partialView.Message);
+            }
+            else {
+                $("#uploadsDiv" + submittalId).html(partialView);
+            }
+        },
+        error: function (xhs) {
+            console.log(xhs.responseText);
+        }
+    });
+}
 
-function deleteUser(user) {
-    alert(user.value);
+function updateOrganizationsPartialView() {
+    $.ajax({
+        type: "get",
+        url: "Users/GetOrganizations",
+        success: function (partialView) {
+            if (partialView["Message"]) {
+                console.log(partialView.Message);
+            }
+            else {
+                $("#organizationPartial").html(partialView);
+            }
+        },
+        error: function () {
+            console.log("Error getting organizations");
+        }
+    })
+}
+
+function getOrgInfoPartialView(id, orgName) {
+    console.log(id);
+    $.ajax({
+        type: "get",
+        url: "Users/GetOrganizationInfo/" + id,
+        success: function (partialView) {
+            $("#orgInfoPartial").html(partialView);
+        },
+        error: function () {
+            console.log("Error getting org info");
+        }
+    })
+}
+
+
+function deleteUser(id) {
+    console.log(id);
+    $.ajax({
+        type: "post",
+        url: "Users/Delete",
+        data: { userId: id },
+        success: function (result) {
+            if (result) {
+                updateUsersTable();
+            }
+            else {
+                console.log("Error deleting user");
+            }
+        },
+        error: function (xhr) {
+            console.log("error: " + xhr.responseText);
+        }
+    });
 }
 
 //an object based on the model is needed to be able to be processed by the controller

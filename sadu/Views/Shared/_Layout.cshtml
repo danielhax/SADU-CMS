@@ -22,6 +22,7 @@
 
     <!--  Custom CSS -->
     <link href="Content/custom.css" rel="stylesheet" />
+    <link href="Content/Site.css" rel="stylesheet" />
     <link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
 
     <!--  CSS for Demo Purpose, don't include it in your project
@@ -38,7 +39,7 @@
 
 </head>
 <body>
-
+    <div id="loading-gif"></div>
     <div class="wrapper">
         <div class="sidebar" data-color="green" data-image="template_assets/img/sidebar-5.jpg">
 
@@ -56,14 +57,14 @@
                     </a>
                 </div>
 
-                <ul class="nav">
-                    <li class="active">
+                <ul class="nav layout-nav">
+                    <li id="dashboard-nav">
                         <a href="@Url.Action("Index", "Users")">
                             <i class="pe-7s-home"></i>
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li>
+                    <li id="user-nav">
                         @if ((bool)Session["isAdmin"])
                         {
                             <a href="@Url.Action("UsersList", "Users")">
@@ -73,17 +74,21 @@
                         }
                         else
                         {
-                            <p>
-                                Profile
-                            </p>
+                            <a href="@Url.Action("UserProfile", "Users")">
+                                <i class="pe-7s-user"></i>
+                                <p>Profile</p>
+                            </a>
                         }
                     </li>
-                    <li>
-                        <a href="@Url.Action("Delete", "Users")">
-                            <i class="pe-7s-culture"></i>
-                            <p>Organizations</p>
-                        </a>
-                    </li>
+                    @if ((bool)Session["isAdmin"])
+                    {
+                        <li id="organization-nav">
+                            <a href="@Url.Action("OrganizationsList", "Users")">
+                                <i class="pe-7s-culture"></i>
+                                <p>Organizations</p>
+                            </a>
+                        </li>
+                    }
                     <li>
                         <a href="@Url.Action("Logout", "Session", new { validRequest = true })">
                             <i class="pe-7s-back"></i>
@@ -165,7 +170,6 @@
                 </div>
             </nav>
 
-
             <div class="container body-content">
                 @RenderBody()
             </div>
@@ -173,7 +177,7 @@
     </div>
     <!-- Create Submission Modal -->
     <div id="createSubmissionModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
 
             <form id="createSubmissionForm">
                 <!-- Modal content-->
@@ -183,10 +187,6 @@
                         <h4 class="modal-title">Create New Submission</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="submissionOrganization">Organization: </label>
-                            <select class="form-control" name="submissionOrganization" id="submissionOrganization"></select>
-                        </div>
                         <div class="form-group">
                             <label for="title">Title: </label>
                             <input type="text" class="form-control" name="submissionTitle" id="submissionTitle" />
@@ -213,14 +213,14 @@
     <!-- Create Submission Modal -->
     <!-- Create User Modal -->
     <div id="createUserModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
 
             <form id="createUserForm">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Create New Submission</h4>
+                        <h4 class="modal-title">Create New User</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
@@ -256,6 +256,26 @@
         </div>
     </div>
     <!-- Create User Modal -->
+    <!-- Org Info Modal -->
+    <div id="orgInfoModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Organization Members</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="orgInfoPartial"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Org Info Modal -->
 </body>
 
 <!--   Core JS Files   -->

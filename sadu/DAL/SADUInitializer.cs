@@ -25,16 +25,14 @@ namespace sadu.DAL
                 new User{email = "mariadb@gmail.com", password = "mariadb", firstName = "Maria", lastName = "Debeaux", isAdmin = false},
                 new User{email = "keysersoz@gmail.com", password = "keysoz", firstName = "Keyser", lastName = "Soze", isAdmin = false},
                 new User{email = "jeanbaljean@gmail.com", password = "jbj1234", firstName = "Jean", lastName = "Baljean", isAdmin = false},
-                new User{email = "admin@gmail.com", password = "admin", firstName = "Adminis", lastName = "Traitor", isAdmin = true, Organizations = null},
+                new User{email = "admin@gmail.com", password = "admin", firstName = "Adminis", lastName = "Traitor", isAdmin = true, Organization = null},
             };
 
-            var submissions = new List<Submission>
+            var submittals = new List<Submission>
             {
                 new Submission{title="Documents", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
                 new Submission{title="Documents2", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
-                new Submission{title="Documents3", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
-                new Submission{title="Documents4", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
-                new Submission{title="Documents5", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)}
+                new Submission{title="Documents3", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)}
             };
 
             var images = new List<OrganizationImage>
@@ -48,10 +46,7 @@ namespace sadu.DAL
             //adding users to orgs
 
             org1.Members.Add(users[0]);
-            org2.Members.Add(users[0]);
             org2.Members.Add(users[1]);
-            org3.Members.Add(users[1]);
-            org1.Members.Add(users[2]);
             org3.Members.Add(users[2]);
             org1.Members.Add(users[3]);
 
@@ -59,13 +54,6 @@ namespace sadu.DAL
             org1.OrganizationImage = images[0];
             org2.OrganizationImage = images[1];
             org3.OrganizationImage = images[2];
-
-            //adding sample submissions to orgs
-            org1.Pending_Submissions.Add(submissions[0]);
-            org2.Pending_Submissions.Add(submissions[1]);
-            org2.Pending_Submissions.Add(submissions[2]);
-            org3.Pending_Submissions.Add(submissions[3]);
-            org3.Pending_Submissions.Add(submissions[4]);
 
             var organizations = new List<Organization>
             {
@@ -81,7 +69,7 @@ namespace sadu.DAL
             //INSERT IMAGES
             images.ForEach(i => context.Organization_Images.Add(i));
             //INSERT SUBMISSIONS
-            submissions.ForEach(s => context.Submissions.Add(s));
+            submittals.ForEach(s => context.Submittals.Add(s));
 
             context.SaveChanges();
 

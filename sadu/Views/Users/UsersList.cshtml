@@ -12,6 +12,11 @@
 
 <script type="text/javascript">
     $(function () {
+
+        //set active nav button
+        $(".layout-nav li").removeClass("active");
+        $("#user-nav").addClass("active");
+
         //students table partial view
         updateUsersTable();
 

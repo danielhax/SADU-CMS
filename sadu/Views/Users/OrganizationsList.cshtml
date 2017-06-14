@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "OrganizationsList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Organizations</h2>
+
+<div class="organizations-div">
+
+    <div id="organizationsNav">
+        <!-- This button toggles the modal -->
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createOrganizationModal"><i class="pe-7s-plus"> </i>Create Organization</button>
+    </div>
+
+    <div id="organizationPartial">
+    </div>
+
+</div>
+
+<script>
+    //onload scripts
+
+    $(function () {
+
+        //set active nav button
+        $(".layout-nav li").removeClass("active");
+        $("#organization-nav").addClass("active");
+
+        updateOrganizationsPartialView();
+    });
+
+
+</script>
+
+

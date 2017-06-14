@@ -1,0 +1,25 @@
+﻿@model IEnumerable<sadu.Models.Organization>
+
+@for (var i = 0; i < Model.Count();)
+{
+    <div class="row">
+        @*4 columns per row*@
+        @for (var j = 0; j < 4; j++, i++)
+        {
+            if (i >= Model.Count())
+            {
+                break;
+            }
+
+            <div class="col col-sm-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <a href="#" id="@Model.ElementAt(i).Id" onclick="getOrgInfoPartialView(this.id);" data-toggle="modal" data-target="#orgInfoModal">
+                        <div class="org-card-image">
+                            <img src="@(Url.Content("~/Assets/"+ Model.ElementAt(i).OrganizationImage.Image))" />
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+}

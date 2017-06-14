@@ -5,17 +5,34 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@* Only non-admin users need to upload file *@
+@if (!(bool)Session["isAdmin"])
+{
+    <link href="~/Content/jquery.fileupload.css" rel = "stylesheet"/>
+}
+
 <h3>Pending Submissions</h3>
+
 
 <div class="submissions-div">
     <div id="submissionPartial">
     </div>
-
 </div>
 
 <script>
     //load submission partial view
     $(function () {
+
+        //set active nav button
+        $(".layout-nav li").removeClass("active");
+        $("#dashboard-nav").addClass("active");
+        
         updateSubmissionsPartialView();
     });
 </script>
+
+@* Only non-admin users need to upload file *@
+@if (!(bool)Session["isAdmin"])
+{
+    <script src="~/Scripts/Custom/file-upload.js"></script>
+}

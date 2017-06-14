@@ -165,6 +165,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\ripple.gif" />
     <Content Include="Assets\scc.png" />
     <Content Include="Assets\jpcs.jpg" />
     <Content Include="Assets\acm.png" />
@@ -174,11 +175,15 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom.css" />
     <Content Include="Content\jquery.datetimepicker.css" />
+    <Content Include="Content\jquery.fileupload.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
+    <Content Include="Scripts\Custom\file-upload.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\Plugins\jquery.datetimepicker.full.min.js" />
+    <Content Include="Scripts\Plugins\jquery.fileupload.js" />
+    <Content Include="Scripts\Plugins\jquery.ui.widget.js" />
     <Content Include="template_assets\css\animate.min.css" />
     <Content Include="template_assets\css\bootstrap.min.css" />
     <Content Include="template_assets\css\demo.css" />
@@ -287,20 +292,22 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout_old.cshtml" />
     <Content Include="Views\Session\Index.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\UsersList.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Admin.cshtml" />
-    <Content Include="Views\Shared\_Submissions.cshtml" />
+    <Content Include="Views\Shared\_Submission.cshtml" />
     <Content Include="Views\View.cshtml" />
     <Content Include="Views\Shared\_UsersTable.cshtml" />
+    <Content Include="Views\Shared\_UploadedFilesList.cshtml" />
+    <Content Include="Views\Shared\_OrganizationsList.cshtml" />
+    <Content Include="Views\Users\OrganizationsList.cshtml" />
+    <Content Include="Views\Shared\_OrgInfo.cshtml" />
+    <Content Include="Views\Users\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

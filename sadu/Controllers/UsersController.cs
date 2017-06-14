@@ -27,12 +27,14 @@ namespace sadu.Controllers
                 if ((bool)System.Web.HttpContext.Current.Session["isAdmin"])
                 {
                     db.Organizations.ToList().ForEach(o => organizationNames.Add(o.name));
+                    db.Dispose();
                     return View("Admin", organizationNames);
                 }
 
                 ////if user is not an admin run user view
                 else
                 {
+                    db.Dispose();
                     return View();
                 }
 
@@ -50,7 +52,43 @@ namespace sadu.Controllers
 
         public PartialViewResult GetUsers()
         {
-            return PartialView("~/Views/Shared/_UsersTable.cshtml", db.Users.ToList());
+            IEnumerable<User> usersList = db.Users.ToList();
+            return PartialView("~/Views/Shared/_UsersTable.cshtml", usersList);
+        }
+
+        [Route("organizations")]
+        public ActionResult OrganizationsList()
+        {
+            if ((bool)Session["isAdmin"])
+            {
+                return View();
+            }
+            else
+            {
+                return Index();
+            }
+            
+        }
+
+        [Route("profile")]
+        public ActionResult UserProfile()
+        {
+            String email = (String)Session["email"];
+            User user = db.Users.FirstOrDefault(u => u.email == email);
+
+            return View(user);
+        }
+
+        public PartialViewResult GetOrganizations()
+        {
+            IEnumerable<Organization> organizations = db.Organizations.ToList();
+            return PartialView("~/Views/Shared/_OrganizationsList.cshtml",organizations);
+        }
+
+        public PartialViewResult GetOrganizationInfo(int id)
+        {
+            Organization organization = db.Organizations.First(o => o.Id == id);
+            return PartialView("~/Views/Shared/_OrgInfo.cshtml", organization);
         }
 
         [HttpPost]
@@ -58,6 +96,7 @@ namespace sadu.Controllers
         {
             if (db.Users.ToList().FirstOrDefault(u => u.email == email) != null)
             {
+                db.Dispose();
                 return Json(new { success = false, Message = "E-mail address is already registered! Please use another e-mail address." });
             }
             else
@@ -68,16 +107,18 @@ namespace sadu.Controllers
                 user.lastName = lastName;
                 user.password = password;
                 user.isAdmin = isAdmin;
-                user.Organizations.Add(db.Organizations.ToList().Find(o => o.name == organization));
+                user.Organization = db.Organizations.FirstOrDefault(o => o.name == organization);
 
                 try
                 {
                     db.Users.Add(user);
                     db.SaveChanges();
+                    db.Dispose();
                     return Json(new { success = true, Message = "User created" });
                 }
                 catch (Exception)
                 {
+                    db.Dispose();
                     return Json(new { success = false, Message = "Something went wrong while creating user" });
                 }
             }
@@ -114,31 +155,14 @@ namespace sadu.Controllers
             return View(user);
         }
 
-        [Route("delete")]
-        // GET: Users/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
         // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult Delete(int userId)
         {
-            User user = db.Users.Find(id);
+            User user = db.Users.Find(userId);
             db.Users.Remove(user);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(true);
         }
 
         protected override void Dispose(bool disposing)

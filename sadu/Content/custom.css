@@ -1,16 +1,32 @@
-﻿.body-content{
+﻿.body-content {
     height: inherit;
 }
 
-.no-pending-submissions-msg{
+/*
+    Loading Gif
+*/
+
+#loading-gif {
+    background: url('../Assets/ripple.gif') no-repeat scroll center center #FFF;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.btn, input[type=button], label.btn,
+.btn i, input[type=button] i label.btn i{
+    color: black;
+}
+
+.no-pending-submissions-msg {
     height: inherit;
 }
 
-.no-pending-submissions-msg p {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-}
+    .no-pending-submissions-msg p {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 
 /*
     Submission cards
@@ -22,6 +38,67 @@
     max-width: 200px;
 }
 
-span.card-label{
+span.card-label {
     font-weight: bold;
+}
+
+label.btn {
+   margin: 0 !important;
+}
+.btn-browse {
+    position: relative;
+    overflow: hidden;
+}
+
+    .btn-browse input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+ul.files-list{
+    padding: 0;
+    list-style: none;
+}
+
+ul.files-list li span{
+    font-size: 10px;
+    font-style: italic;
+}
+
+#organizationPartial{
+    margin-top: 20px;
+}
+
+#organizationPartial .card{
+    padding: 20px;
+}
+
+.org-card-image{
+    width: 150px;
+    height: 150px;
+    margin: auto;
+}
+
+    .org-card-image img {
+        display: block;
+        margin: auto;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+.files-list .well img{
+    display: inline-block;
+    height: 22px;
+    width: 22px;
+    margin-left: 3px;
 }

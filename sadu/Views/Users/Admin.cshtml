@@ -20,6 +20,11 @@
     //onload scripts
 
     $(function () {
+
+        //set active nav button
+        $(".layout-nav li").removeClass("active");
+        $("#dashboard-nav").addClass("active");
+
         updateSubmissionsPartialView();
 
         //populate select of add submission form of organization names
