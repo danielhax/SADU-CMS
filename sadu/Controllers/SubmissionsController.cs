@@ -9,6 +9,7 @@ using sadu.Models;
 using System.Globalization;
 using System.Web;
 using System.IO;
+using Ionic.Zip;
 
 namespace sadu.Controllers
 {
@@ -98,7 +99,7 @@ namespace sadu.Controllers
                     }
 
                     //create org submittal directory
-                    DirectoryInfo di = Directory.CreateDirectory(fullPath);
+                    Directory.CreateDirectory(fullPath);
 
                     for (int i = 0; i < files.Count; i++)
                     {
@@ -119,17 +120,6 @@ namespace sadu.Controllers
 
                         fullPath = Path.Combine(fullPath, fname);
                         file.SaveAs(fullPath);
-
-                        //try
-                        //{
-                        //    db.Submissions.Add(submission);
-                        //    db.SaveChanges();
-                        //}
-                        //catch (Exception ex)
-                        //{
-                        //    return Json(new { Message = "An error occured while recording to database 2." + ex.Message });
-                        //}
-
 
                     }
                     // Returns message that successfully uploaded  
@@ -174,6 +164,19 @@ namespace sadu.Controllers
                         
                         int org_id = int.Parse(orgdir.Substring(orgdir.LastIndexOf("\\") + 1));
                         Organization org = db.Organizations.First(o => o.Id == org_id);
+
+                        if (!(bool)Session["isAdmin"])
+                        {
+                            Organization userOrg = (Organization)Session["organization"];
+
+                            //return Json(new { Message = org.Id + " " + userOrg.Id }, JsonRequestBehavior.AllowGet);
+
+                            if (org.Id != userOrg.Id)
+                            {
+                                continue;
+                            }
+                        }
+
                         path = Path.Combine(path, orgdir);
 
                         foreach (var userdir in Directory.GetDirectories(orgdir))
@@ -222,6 +225,60 @@ namespace sadu.Controllers
             else
             {
                 return Json(new { message = "no files related to submission with id " + Id }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult Download(String path, String fileName)
+        {
+            String contentType = GetContentType(path);
+
+            if (contentType == null)
+                return Json(new { Message = "The file you wish to download is of suspicious type: " + Path.GetExtension(path) }, JsonRequestBehavior.AllowGet);
+
+            return File(path, contentType, fileName);
+        }
+
+        //public ActionResult DownloadAll()
+        //{
+        //    //return Json(new { Message = RouteData.Values.Count }, JsonRequestBehavior.AllowGet);
+
+        //    using (ZipFile zip = new ZipFile())
+        //    {
+        //        zip.AddFile
+        //        zip.Save(Server.MapPath("~/Directories/hello/sample.zip"));
+        //        return File(Server.MapPath("~/Directories/hello/sample.zip"),
+        //                                   "application/zip", "sample.zip");
+        //    }
+
+        //    return Json();
+            
+
+        //}
+
+        public String GetContentType(String path)
+        {
+            String extension = Path.GetExtension(path);
+
+            switch (extension)
+            {
+                case ".txt":
+                    return "text/plain";
+                case ".pdf":
+                    return "application/pdf";
+                case ".ppt":
+                    return "application/vnd.ms-powerpoint";
+                case ".pptx":
+                    return "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+                case ".doc":
+                    return "application/msword";
+                case ".docx":
+                    return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                case ".xls":
+                    return "application/vnd.ms-excel";
+                case ".xlsx":
+                    return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                default:
+                    return null;
             }
         }
 
@@ -295,35 +352,5 @@ namespace sadu.Controllers
         {
             return !Directory.EnumerateFileSystemEntries(path).Any();
         }
-
-        //private bool deleteLastSubmission(int submittalId, Organization organization)
-        //{
-        //    using (SADUContext context = new SADUContext())
-        //    {
-        //        Submission submittal = context.Submittals.First(s => s.Id == submittalId);
-        //        Submission lastSubmission = submittal.Submissions.FirstOrDefault(s => s.Organization == organization);
-
-        //        //Delete last submission
-        //        if (lastSubmission != null)
-        //        {
-        //            //    return Json(new { Message = "There is a submission" });
-        //            try
-        //            {
-        //                context.Submittals.First(s => s.Submissions.Remove(lastSubmission));
-        //                context.SaveChanges();
-        //                return true;
-        //            }
-        //            catch (Exception)
-        //            {
-        //                return false;
-        //            }
-
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //}
     }
 }

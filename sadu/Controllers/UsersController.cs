@@ -56,20 +56,6 @@ namespace sadu.Controllers
             return PartialView("~/Views/Shared/_UsersTable.cshtml", usersList);
         }
 
-        [Route("organizations")]
-        public ActionResult OrganizationsList()
-        {
-            if ((bool)Session["isAdmin"])
-            {
-                return View();
-            }
-            else
-            {
-                return Index();
-            }
-            
-        }
-
         [Route("profile")]
         public ActionResult UserProfile()
         {
@@ -77,18 +63,6 @@ namespace sadu.Controllers
             User user = db.Users.FirstOrDefault(u => u.email == email);
 
             return View(user);
-        }
-
-        public PartialViewResult GetOrganizations()
-        {
-            IEnumerable<Organization> organizations = db.Organizations.ToList();
-            return PartialView("~/Views/Shared/_OrganizationsList.cshtml",organizations);
-        }
-
-        public PartialViewResult GetOrganizationInfo(int id)
-        {
-            Organization organization = db.Organizations.First(o => o.Id == id);
-            return PartialView("~/Views/Shared/_OrgInfo.cshtml", organization);
         }
 
         [HttpPost]

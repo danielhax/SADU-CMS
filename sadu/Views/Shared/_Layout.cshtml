@@ -41,7 +41,8 @@
 <body>
     <div id="loading-gif"></div>
     <div class="wrapper">
-        <div class="sidebar" data-color="green" data-image="template_assets/img/sidebar-5.jpg">
+        <div class="sidebar" data-color="green"
+             data-image="/Assets/banner.png">
 
             <!--
 
@@ -83,7 +84,7 @@
                     @if ((bool)Session["isAdmin"])
                     {
                         <li id="organization-nav">
-                            <a href="@Url.Action("OrganizationsList", "Users")">
+                            <a href="@Url.Action("Index", "Organizations")">
                                 <i class="pe-7s-culture"></i>
                                 <p>Organizations</p>
                             </a>
@@ -256,6 +257,39 @@
         </div>
     </div>
     <!-- Create User Modal -->
+
+    <!-- Create Org Modal -->
+    <div id="createOrganizationModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+
+            <form id="createOrganizationForm">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Create New Organization</h4>
+                    </div>
+                    <div class="modal-body">
+                        <img class="org-img-preview"/>
+                        <div class="form-group">
+                            <label for="OrganizationImage">Image</label>
+                            <input type="file" id="createOrgImg" name="OrganizationImage" onchange="storeTempImage(this);" accept="image/jpeg, image/png, image/gif, image/x-ms-bmp"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Organization Name: </label>
+                            <input type="text" id="createOrgName" class="form-control" name="name" required />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Create Org Modal -->
+
     <!-- Org Info Modal -->
     <div id="orgInfoModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-md">
@@ -294,5 +328,6 @@
 <!-- Custom JS Files-->
 <script src="~/Scripts/Custom/custom.js"></script>
 <script src="~/Scripts/Custom/requests.js"></script>
+<script src="~/Scripts/Custom/file-upload.js"></script>
 
 </html>

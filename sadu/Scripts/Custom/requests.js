@@ -37,7 +37,8 @@
     $('#createSubmissionForm').submit(function (e) {
         e.preventDefault();
         console.log("create submission request");
-        console.log($(this).serialize());
+
+        console.log($(this).find("input[type=file]").prop("files").name);
         $.ajax({
             type: "post",
             url: "Submissions/Create",
@@ -70,6 +71,35 @@
                 if (data.success) {
                     $("#createUserModal").modal("toggle");
                     updateUsersTable();
+                    console.log("succesx");
+                }
+                else {
+                    console.log(data.Message);
+                }
+            },
+            error: function (xhs) {
+                console.log("error" + xhs.responseText);
+            }
+        });
+    });
+
+    $('#createOrganizationForm').submit(function (e) {
+        e.preventDefault();
+        console.log("create organization request");
+        var fd = new FormData();
+        fd.append($("#createOrgImg").attr("name"), $("#createOrgImg").prop("files")[0].name);
+        fd.append($("#createOrgName").attr("name"), $("#createOrgName").val());
+        $.ajax({
+            type: "post",
+            url: "Organizations/Create",
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data.success) {
+                    console.log(data.Message);
+                    $("#createOrganizationModal").modal("toggle");
+                    updateOrganizationsPartialView();
                     console.log("succesx");
                 }
                 else {
@@ -136,7 +166,7 @@ function updateUploadsPartialView(submittalId) {
 function updateOrganizationsPartialView() {
     $.ajax({
         type: "get",
-        url: "Users/GetOrganizations",
+        url: "Organizations/GetOrganizations",
         success: function (partialView) {
             if (partialView["Message"]) {
                 console.log(partialView.Message);
@@ -145,8 +175,8 @@ function updateOrganizationsPartialView() {
                 $("#organizationPartial").html(partialView);
             }
         },
-        error: function () {
-            console.log("Error getting organizations");
+        error: function (xhr) {
+            console.log("Error getting organizations: " + xhr.responseText);
         }
     })
 }
@@ -155,7 +185,7 @@ function getOrgInfoPartialView(id, orgName) {
     console.log(id);
     $.ajax({
         type: "get",
-        url: "Users/GetOrganizationInfo/" + id,
+        url: "Organizations/GetOrganizationInfo/" + id,
         success: function (partialView) {
             $("#orgInfoPartial").html(partialView);
         },

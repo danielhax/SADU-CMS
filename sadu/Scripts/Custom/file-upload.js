@@ -2,8 +2,6 @@
 
     var submissionId = input.id.substr(-1);
 
-    console.log("Entered function. Id: " + submissionId);
-
     var files = new FormData();
     //also submit id for reference
     files.append('Id', submissionId);
@@ -36,6 +34,34 @@
         },
         complete: function () {
             $(input).replaceWith($(input).val('').clone(true));
+        }
+    });
+}
+
+function storeTempImage(input) {
+
+    var files = new FormData();
+
+    $.each($(input).get(0).files, function (i, file) {
+        files.append(file.name, file);
+        console.log(file.name);
+    });
+
+    $.ajax({
+        type: "post",
+        url: "Organizations/storeTempImage",
+        data: files,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if (data["Message"]) {
+                console.log(date["Message"]);
+            } else {
+                $(".org-img-preview").prop("src", data);
+            }
+        },
+        error: function (xhr) {
+            console.log("Upload to temp error: " + xhr.responseText);
         }
     });
 }

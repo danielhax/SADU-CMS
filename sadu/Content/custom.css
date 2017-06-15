@@ -102,3 +102,14 @@ ul.files-list li span{
     width: 22px;
     margin-left: 3px;
 }
+
+.uploaded-files .title{
+    display:inline;
+    margin-top: 10px;
+}
+
+.download-all-btn{
+    font-size: 12px;
+    display: inline;
+    float: right;
+}

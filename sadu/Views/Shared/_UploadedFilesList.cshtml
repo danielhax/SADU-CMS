@@ -1,42 +1,54 @@
 ﻿@using System.Globalization;
+@using sadu.Models
 @model Dictionary<String, List<KeyValuePair<String, Object>>>
 
+@{ 
+    //build array of files for multiple download
+    RouteValueDictionary rv = new RouteValueDictionary();
+
+    foreach(var item in Model)
+    {
+        rv.Add(item.Key, (String)item.Value.Find(p => p.Key == "file_path").Value);
+    }
+
+}
 
 @if (Model.Count() != 0)
 {
     <div class="row">
         <div class="col col-sm-12 uploaded-files">
             <div class="card">
-                <form id="downloadForm">
-                    <h5 class="header">Uploaded Files</h5>
-                    <button type="submit" class="btn btn-default">Download All</button>
+                <div class="header">
+                    <h5 class="title">Uploaded Files</h5>
+                    @if ((bool)Session["isAdmin"])
+                {<a class="btn btn-default download-all-btn" href="@Url.Action("DownloadAll", "Submissions", rv )">Download All</a>}
                     <hr />
-                    <div class="content">
-                        <ul class="files-list">
-                            @foreach (var submission in Model)
-                            {
-                                sadu.Models.Organization organization = (sadu.Models.Organization)submission.Value.Find(v => v.Key == "organization").Value;
-                                String date = (String)submission.Value.Find(v => v.Key == "date_uploaded").Value;
-                                String time = (String)submission.Value.Find(v => v.Key == "time_uploaded").Value;
-                                String date_time = DateTime.ParseExact(date + time, "MMddyyyyHHmm", CultureInfo.InvariantCulture).ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture);
+                </div>
+                <div class="content">
+                    <ul class="files-list">
+                        @foreach (var submission in Model)
+                        {
+                            sadu.Models.Organization organization = (sadu.Models.Organization)submission.Value.Find(v => v.Key == "organization").Value;
+                            String date = (String)submission.Value.Find(v => v.Key == "date_uploaded").Value;
+                            String time = (String)submission.Value.Find(v => v.Key == "time_uploaded").Value;
+                            String date_time = DateTime.ParseExact(date + time, "MMddyyyyHHmm", CultureInfo.InvariantCulture).ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture);
 
-                                <li>
-                                    <div class="well well-sm">
-                                        @*
-                                                Substring(*.LastIndexOf("\\")) extracts the file name only from the full path
-                                            **@
-                                        <a href="#" onclick="">@submission.Key</a>
-                                        <span>
-                                            submitted by @submission.Value.Find(v => v.Key == "user_name").Value
-                                            <img src="@("\\Assets\\" + organization.OrganizationImage.Image)" data-toggle="tooltip" data-placement="top" title="@organization.name" />
-                                            on @date_time
-                                        </span>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </form>
+                            <li>
+                                <div class="well well-sm">
+                                    @*
+                                            Substring(*.LastIndexOf("\\")) extracts the file name only from the full path
+                                        **@
+                                    <a href="@Url.Action("Download", "Submissions", new { path = submission.Value.Find(v => v.Key == "file_path").Value, fileName = submission.Key })" onclick="">@submission.Key</a>
+                                    <span>
+                                        submitted by @submission.Value.Find(v => v.Key == "user_name").Value
+                                        <img src="@("\\Assets\\" + organization.OrganizationImage.Image)" data-toggle="tooltip" data-placement="top" title="@organization.name" />
+                                        on @date_time
+                                    </span>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

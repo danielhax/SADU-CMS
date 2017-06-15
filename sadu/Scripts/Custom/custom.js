@@ -18,3 +18,9 @@
 $(window).load(function () {
     $('#loading-gif').fadeOut(1000);
 });
+
+//functions
+
+function updateImagePreview(image) {
+    $(".org-img-preview").attr('src', image);
+}
