@@ -169,7 +169,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\admin-banner.png" />
     <Content Include="Assets\banner.png" />
+    <Content Include="Assets\feutech-logo.png" />
     <Content Include="Assets\ripple.gif" />
     <Content Include="Assets\scc.png" />
     <Content Include="Assets\jpcs.jpg" />

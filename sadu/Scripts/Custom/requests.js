@@ -37,8 +37,7 @@
     $('#createSubmissionForm').submit(function (e) {
         e.preventDefault();
         console.log("create submission request");
-
-        console.log($(this).find("input[type=file]").prop("files").name);
+        
         $.ajax({
             type: "post",
             url: "Submissions/Create",
@@ -117,7 +116,7 @@
 function updateSubmissionsPartialView() {
     $.ajax({
         type: "get",
-        url: "Submissions/GetSubmittals",
+        url: "Submissions/GetSubmissions",
         success: function (partialView) {
             if (partialView["Message"]) {
                 console.log(partialView.Message)
@@ -195,7 +194,6 @@ function getOrgInfoPartialView(id, orgName) {
     })
 }
 
-
 function deleteUser(id) {
     console.log(id);
     $.ajax({
@@ -214,6 +212,25 @@ function deleteUser(id) {
             console.log("error: " + xhr.responseText);
         }
     });
+}
+
+function archiveSubmission(id) {
+    $.ajax({
+        type: "get",
+        url: "Submissions/Archive/" + id,
+        success: function (result) {
+            if (result["Message"]) {
+                console.log(result.Message);
+            }
+            else {
+                updateSubmissionsPartialView();
+                console.log("Archive successful");
+            }
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+        }
+    })
 }
 
 //an object based on the model is needed to be able to be processed by the controller

@@ -17,12 +17,12 @@ namespace sadu.Controllers
     {
         private SADUContext db = new SADUContext();
 
-        public PartialViewResult GetSubmittals()
+        public PartialViewResult GetSubmissions()
         {
             /*
              Always instantiate context every time partial view is update to get updated dataset
              */
-            List<Submission> submissionsList = db.Submittals.ToList();
+            List<Submission> submissionsList = db.Submissions.ToList();
             return PartialView("~/Views/Shared/_Submission.cshtml", submissionsList);
         }
 
@@ -37,7 +37,7 @@ namespace sadu.Controllers
 
             try
             {
-                db.Submittals.Add(submittal);
+                db.Submissions.Add(submittal);
                 db.SaveChanges();
                 return Json(new { success = true, Message = "Submission created" });
             }
@@ -135,6 +135,27 @@ namespace sadu.Controllers
                 return Json(new { Message = "No file found." });
             }
 
+        }
+
+        public ActionResult Archive(int id)
+        {
+            Submission submission = db.Submissions.FirstOrDefault(s => s.Id == id);
+
+            if(submission == null)
+            {
+                return Json(new { Message = "Server cannot find the submission" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                submission.archived = true;
+                db.SaveChanges();
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                return Json(new { Message = "Error in archiving submission: " + ex }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult GetUploads(int Id)
@@ -240,18 +261,27 @@ namespace sadu.Controllers
 
         //public ActionResult DownloadAll()
         //{
-        //    //return Json(new { Message = RouteData.Values.Count }, JsonRequestBehavior.AllowGet);
+            
 
-        //    using (ZipFile zip = new ZipFile())
+        //    List<String> paths = new List<String>();
+
+        //    foreach(var item in RouteData.Values)
         //    {
-        //        zip.AddFile
-        //        zip.Save(Server.MapPath("~/Directories/hello/sample.zip"));
-        //        return File(Server.MapPath("~/Directories/hello/sample.zip"),
-        //                                   "application/zip", "sample.zip");
+        //        paths.Add(item.Value);
         //    }
 
-        //    return Json();
-            
+        //    return Json(new { Message = paths[1] }, JsonRequestBehavior.AllowGet);
+
+        //    //using (ZipFile zip = new ZipFile())
+        //    //{
+        //    //    zip.AddFiles(new IEnumerable<String>() { "lll" });
+        //    //    zip.Save(Server.MapPath("~/Directories/hello/sample.zip"));
+        //    //    return File(Server.MapPath("~/Directories/hello/sample.zip"),
+        //    //                               "application/zip", "sample.zip");
+        //    //}
+
+        //    //return Json();
+
 
         //}
 
@@ -289,7 +319,7 @@ namespace sadu.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Submission submission = db.Submittals.Find(id);
+            Submission submission = db.Submissions.Find(id);
             if (submission == null)
             {
                 return HttpNotFound();
@@ -311,32 +341,6 @@ namespace sadu.Controllers
                 return RedirectToAction("Index");
             }
             return View(submission);
-        }
-
-        // GET: Submittals/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Submission submission = db.Submittals.Find(id);
-            if (submission == null)
-            {
-                return HttpNotFound();
-            }
-            return View(submission);
-        }
-
-        // POST: Submittals/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Submission submission = db.Submittals.Find(id);
-            db.Submittals.Remove(submission);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

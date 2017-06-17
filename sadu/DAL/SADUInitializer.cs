@@ -28,7 +28,7 @@ namespace sadu.DAL
                 new User{email = "admin@gmail.com", password = "admin", firstName = "Adminis", lastName = "Traitor", isAdmin = true, Organization = null},
             };
 
-            var submittals = new List<Submission>
+            var submissions = new List<Submission>
             {
                 new Submission{title="Documents", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
                 new Submission{title="Documents2", details="Submit these documents", date_created = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture), date_deadline = DateTime.Now.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture)},
@@ -69,7 +69,7 @@ namespace sadu.DAL
             //INSERT IMAGES
             images.ForEach(i => context.Organization_Images.Add(i));
             //INSERT SUBMISSIONS
-            submittals.ForEach(s => context.Submittals.Add(s));
+            submissions.ForEach(s => context.Submissions.Add(s));
 
             context.SaveChanges();
 

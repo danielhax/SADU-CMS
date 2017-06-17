@@ -6,7 +6,13 @@
 
 #loginAlert{
     margin: 0;
-    padding: 10px
+    padding: 10px;
+}
+
+#loginLogo {
+    display: block;
+    margin: auto;
+    width: 100px;
 }
 
 /*

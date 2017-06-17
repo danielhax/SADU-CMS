@@ -21,7 +21,7 @@
                 <div class="header">
                     <h5 class="title">Uploaded Files</h5>
                     @if ((bool)Session["isAdmin"])
-                {<a class="btn btn-default download-all-btn" href="@Url.Action("DownloadAll", "Submissions", rv )">Download All</a>}
+                {<a class="btn btn-default card-header-btn download-all-btn" href="@Url.Action("DownloadAll", "Submissions", rv)">Download All</a>}
                     <hr />
                 </div>
                 <div class="content">

@@ -75,8 +75,8 @@ ul.files-list li span{
     font-style: italic;
 }
 
-#organizationPartial{
-    margin-top: 20px;
+.view-nav{
+    margin: 15px 0;
 }
 
 #organizationPartial .card{
@@ -103,12 +103,12 @@ ul.files-list li span{
     margin-left: 3px;
 }
 
-.uploaded-files .title{
+.cardDiv .card .title{
     display:inline;
     margin-top: 10px;
 }
 
-.download-all-btn{
+.card-header-btn{
     font-size: 12px;
     display: inline;
     float: right;

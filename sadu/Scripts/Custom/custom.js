@@ -11,6 +11,19 @@
         $(this).find('form').trigger('reset');
     });
 
+    //admin toggle archived/non-archived submission view
+    $("#toggleArchiveBtn").click(function () {
+
+        if ($("#nonArchivedDiv").hasClass("hidden")) {
+            $("#archivedDiv").addClass("hidden");
+            $("#nonArchivedDiv").removeClass("hidden");
+            
+        } else {
+            $("#archivedDiv").removeClass("hidden");
+            $("#nonArchivedDiv").addClass("hidden");
+        }
+    });
+
 });
 /*
     for loading gif to slowly disappear
