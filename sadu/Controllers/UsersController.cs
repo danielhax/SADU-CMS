@@ -45,9 +45,14 @@ namespace sadu.Controllers
         [Route("users")]
         public ActionResult UsersList()
         {
-            List<String> organizationsList = new List<String>();
-            db.Organizations.ToList().ForEach(o => organizationsList.Add(o.name));
-            return View(organizationsList);
+            if (System.Web.HttpContext.Current.Session["email"] == null)
+                return RedirectToAction("Index", "Session");
+            else
+            {
+                List<String> organizationsList = new List<String>();
+                db.Organizations.ToList().ForEach(o => organizationsList.Add(o.name));
+                return View(organizationsList);
+            }
         }
 
         public PartialViewResult GetUsers()
@@ -59,41 +64,53 @@ namespace sadu.Controllers
         [Route("profile")]
         public ActionResult UserProfile()
         {
-            String email = (String)Session["email"];
-            User user = db.Users.FirstOrDefault(u => u.email == email);
+            if (System.Web.HttpContext.Current.Session["email"] == null)
+                return RedirectToAction("Index", "Session");
+            else
+            {
+                String email = (String)Session["email"];
+                User user = db.Users.FirstOrDefault(u => u.email == email);
 
-            return View(user);
+                return View(user);
+            }
         }
 
         [HttpPost]
         public ActionResult Create(String organization, String email, String firstName, String lastName, String password, bool isAdmin = false)
         {
-            if (db.Users.ToList().FirstOrDefault(u => u.email == email) != null)
-            {
-                db.Dispose();
-                return Json(new { success = false, Message = "E-mail address is already registered! Please use another e-mail address." });
-            }
+            if (System.Web.HttpContext.Current.Session["email"] == null)
+                return RedirectToAction("Index", "Session");
+            else if((bool)System.Web.HttpContext.Current.Session["isAdmin"] == false)
+                return RedirectToAction("Index", "Users");
             else
             {
-                User user = new User();
-                user.email = email;
-                user.firstName = firstName;
-                user.lastName = lastName;
-                user.password = password;
-                user.isAdmin = isAdmin;
-                user.Organization = db.Organizations.FirstOrDefault(o => o.name == organization);
-
-                try
+                if (db.Users.ToList().FirstOrDefault(u => u.email == email) != null)
                 {
-                    db.Users.Add(user);
-                    db.SaveChanges();
                     db.Dispose();
-                    return Json(new { success = true, Message = "User created" });
+                    return Json(new { success = false, Message = "E-mail address is already registered! Please use another e-mail address." });
                 }
-                catch (Exception)
+                else
                 {
-                    db.Dispose();
-                    return Json(new { success = false, Message = "Something went wrong while creating user" });
+                    User user = new User();
+                    user.email = email;
+                    user.firstName = firstName;
+                    user.lastName = lastName;
+                    user.password = password;
+                    user.isAdmin = isAdmin;
+                    user.Organization = db.Organizations.FirstOrDefault(o => o.name == organization);
+
+                    try
+                    {
+                        db.Users.Add(user);
+                        db.SaveChanges();
+                        db.Dispose();
+                        return Json(new { success = true, Message = "User created" });
+                    }
+                    catch (Exception)
+                    {
+                        db.Dispose();
+                        return Json(new { success = false, Message = "Something went wrong while creating user" });
+                    }
                 }
             }
         }
@@ -133,10 +150,17 @@ namespace sadu.Controllers
         [HttpPost]
         public ActionResult Delete(int userId)
         {
-            User user = db.Users.Find(userId);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return Json(true);
+            if (System.Web.HttpContext.Current.Session["email"] == null)
+                return RedirectToAction("Index", "Session");
+            else if ((bool)System.Web.HttpContext.Current.Session["isAdmin"] == false)
+                return RedirectToAction("Index", "Users");
+            else
+            {
+                User user = db.Users.Find(userId);
+                db.Users.Remove(user);
+                db.SaveChanges();
+                return Json(true);
+            }
         }
 
         protected override void Dispose(bool disposing)

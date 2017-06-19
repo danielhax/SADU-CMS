@@ -141,7 +141,7 @@ namespace sadu.Controllers
         {
             Submission submission = db.Submissions.FirstOrDefault(s => s.Id == id);
 
-            if(submission == null)
+            if (submission == null)
             {
                 return Json(new { Message = "Server cannot find the submission" }, JsonRequestBehavior.AllowGet);
             }
@@ -152,7 +152,7 @@ namespace sadu.Controllers
                 db.SaveChanges();
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(new { Message = "Error in archiving submission: " + ex }, JsonRequestBehavior.AllowGet);
             }
@@ -177,12 +177,13 @@ namespace sadu.Controllers
                     }]
                  */
                 var submissions = new Dictionary<String, List<KeyValuePair<String, Object>>>();
+                String deadline = db.Submissions.FirstOrDefault(s => s.Id == Id).date_deadline;
 
                 try
                 {
                     foreach (var orgdir in Directory.GetDirectories(path))
                     {
-                        
+
                         int org_id = int.Parse(orgdir.Substring(orgdir.LastIndexOf("\\") + 1));
                         Organization org = db.Organizations.First(o => o.Id == org_id);
 
@@ -223,8 +224,9 @@ namespace sadu.Controllers
                                 String fileName = Path.GetFileName(file);
                                 path = Path.Combine(path, fileName);
 
-                                submissions.Add(fileName,
+                                submissions.Add(user_id.ToString(),
                                     new List<KeyValuePair<String, Object>>() {
+                                    new KeyValuePair<String, Object>("file_name", fileName),
                                     new KeyValuePair<String, Object>("file_path", path),
                                     new KeyValuePair<String, Object>("date_uploaded", date),
                                     new KeyValuePair<String, Object>("time_uploaded", time),
@@ -241,7 +243,7 @@ namespace sadu.Controllers
                     return Json(new { Message = "An error occured while building model: " + ex.Message }, JsonRequestBehavior.AllowGet);
                 }
 
-                return PartialView("~/Views/Shared/_UploadedFilesList.cshtml", submissions);
+                return PartialView("~/Views/Shared/_UploadedFilesList.cshtml", new List<Object>{ deadline, submissions });
             }
             else
             {
@@ -261,7 +263,7 @@ namespace sadu.Controllers
 
         //public ActionResult DownloadAll()
         //{
-            
+
 
         //    List<String> paths = new List<String>();
 

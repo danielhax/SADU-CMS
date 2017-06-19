@@ -15,11 +15,24 @@
     $("#toggleArchiveBtn").click(function () {
 
         if ($("#nonArchivedDiv").hasClass("hidden")) {
+            /*
+                archived to non-archived
+            */
             $("#archivedDiv").addClass("hidden");
+
+            $("#toggleArchiveBtn").text("View Archive");
+            $("#toggleArchiveBtn").css("color", "black");
+            $("#toggleArchiveBtn").css("background-color", "transparent");
+
             $("#nonArchivedDiv").removeClass("hidden");
-            
         } else {
             $("#archivedDiv").removeClass("hidden");
+
+            $("#toggleArchiveBtn").text("View Pending");
+            $("#toggleArchiveBtn").css("color", "white");
+            $("#toggleArchiveBtn").css("background-color", "#0035a7");
+            
+
             $("#nonArchivedDiv").addClass("hidden");
         }
     });

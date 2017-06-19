@@ -17,6 +17,12 @@
 .btn i, input[type=button] i label.btn i{
     color: black;
 }
+/*
+    Main view styles
+*/
+.view-nav {
+    margin: 15px 0;
+}
 
 .no-pending-submissions-msg {
     height: inherit;
@@ -31,11 +37,8 @@
 /*
     Submission cards
 */
-
-.card-image img {
-    display: block;
-    margin: 0 auto;
-    max-width: 200px;
+.uploaded-files-container{
+    margin-top: 15px;
 }
 
 span.card-label {
@@ -75,10 +78,6 @@ ul.files-list li span{
     font-style: italic;
 }
 
-.view-nav{
-    margin: 15px 0;
-}
-
 #organizationPartial .card{
     padding: 20px;
 }
@@ -112,4 +111,11 @@ ul.files-list li span{
     font-size: 12px;
     display: inline;
     float: right;
+}
+
+//User profile
+
+#profileContainer{
+    width: 50%;
+    margin: 15px auto;
 }
