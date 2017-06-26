@@ -62,5 +62,5 @@
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
 
-package/* list-vendored
-sadu/Content/* list-vendored
+package/* linguist-vendored
+sadu/Content/* linguist-vendored
