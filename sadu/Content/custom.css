@@ -113,9 +113,13 @@ ul.files-list li span{
     float: right;
 }
 
-//User profile
-
 #profileContainer{
-    width: 50%;
+    min-width: 50%;
+    max-width: 60%;
     margin: 15px auto;
+}
+
+.org-img-preview{
+    max-width: 300px;
+    max-height: 300px;
 }

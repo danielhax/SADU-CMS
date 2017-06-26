@@ -152,6 +152,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Compressor.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SubmissionsController.cs" />
@@ -161,7 +162,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="fonts\Users.cs" />
     <Compile Include="Models\OrganizationImage.cs" />
     <Compile Include="Models\Submission.cs" />
     <Compile Include="Models\Organization.cs" />
@@ -169,8 +169,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\admin-banner.png" />
-    <Content Include="Assets\banner.png" />
+    <Content Include="Assets\Banners\AC.png" />
+    <Content Include="Assets\Banners\ACES.png" />
+    <Content Include="Assets\Banners\ACM.png" />
+    <Content Include="Assets\Banners\admin.png" />
+    <Content Include="Assets\Banners\AITS.png" />
+    <Content Include="Assets\Banners\CpEO.png" />
+    <Content Include="Assets\Banners\CYC.png" />
+    <Content Include="Assets\Banners\ECESS.png" />
+    <Content Include="Assets\Banners\EESA.png" />
+    <Content Include="Assets\Banners\Innov.png" />
+    <Content Include="Assets\Banners\JPCS.png" />
+    <Content Include="Assets\Banners\MES.png" />
+    <Content Include="Assets\Banners\RAC.png" />
+    <Content Include="Assets\Banners\SAAP.png" />
+    <Content Include="Assets\Banners\SCC.png" />
+    <Content Include="Assets\Banners\YFC.png" />
     <Content Include="Assets\feutech-logo.png" />
     <Content Include="Assets\ripple.gif" />
     <Content Include="Assets\scc.png" />

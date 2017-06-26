@@ -2,6 +2,7 @@
 using sadu.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -16,7 +17,7 @@ namespace sadu.Controllers
         [Route("organizations")]
         public ActionResult Index()
         {
-            if(System.Web.HttpContext.Current.Session["email"] == null)
+            if (System.Web.HttpContext.Current.Session["email"] == null)
             {
                 return RedirectToAction("Index", "Session");
             }
@@ -52,7 +53,7 @@ namespace sadu.Controllers
                 db.SaveChanges();
                 return Json(new { Message = name, success = true });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(new { Message = "Problem in creating organization: " + ex });
             }
@@ -71,6 +72,34 @@ namespace sadu.Controllers
         }
 
         [HttpPost]
+        public ActionResult Delete(int orgId)
+        {
+
+            if (System.Web.HttpContext.Current.Session["email"] == null)
+                return RedirectToAction("Index", "Session");
+            else if ((bool)System.Web.HttpContext.Current.Session["isAdmin"] == false)
+                return RedirectToAction("Index", "Users");
+            else
+            {
+                try
+                {
+                    Organization org = db.Organizations.FirstOrDefault(o => o.Id == orgId);
+
+                    //delete Org Image first
+                    db.Organization_Images.Remove(org.OrganizationImage);
+                    //delete org
+                    db.Organizations.Remove(org);
+                    db.SaveChanges();
+                    return Json(new { Message = "Organization successfully deleted"});
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { Message = "Cannot delete this organization: " + ex });
+                }
+            }
+        }
+
+        [HttpPost]
         public ActionResult StoreTempImage()
         {
             HttpFileCollectionBase files = Request.Files;
@@ -85,7 +114,7 @@ namespace sadu.Controllers
             }
 
             Directory.CreateDirectory(path);
-                
+
             for (int i = 0; i < files.Count; i++)
             {
 

@@ -80,7 +80,7 @@ namespace sadu.Controllers
         {
             if (System.Web.HttpContext.Current.Session["email"] == null)
                 return RedirectToAction("Index", "Session");
-            else if((bool)System.Web.HttpContext.Current.Session["isAdmin"] == false)
+            else if ((bool)System.Web.HttpContext.Current.Session["isAdmin"] == false)
                 return RedirectToAction("Index", "Users");
             else
             {
@@ -97,7 +97,11 @@ namespace sadu.Controllers
                     user.lastName = lastName;
                     user.password = password;
                     user.isAdmin = isAdmin;
-                    user.Organization = db.Organizations.FirstOrDefault(o => o.name == organization);
+
+                    if (!isAdmin)
+                        user.Organization = db.Organizations.FirstOrDefault(o => o.name == organization);
+                    else
+                        user.Organization = null;
 
                     try
                     {
@@ -115,35 +119,36 @@ namespace sadu.Controllers
             }
         }
 
-        // GET: Users/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
 
-        // POST: Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,username,password,firstName,lastName,isAdmin")] User user)
+        public ActionResult Edit(String new_email, String new_fname, String new_lname)
         {
-            if (ModelState.IsValid)
+
+            int? id = (int)Session["Id"];
+            User user = db.Users.FirstOrDefault(u => u.Id == id);
+
+            if (id != null)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    user.firstName = new_fname;
+                    user.lastName = new_lname;
+                    user.email = new_email;
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return Json(new { Message = "Update successful" });
+
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { Message = "Error in updating user profile: " + ex });
+                }
+
             }
-            return View(user);
+            else
+            {
+                return Json(new { Message = "Cannot find user" });
+            }
         }
 
         // POST: Users/Delete/5
@@ -161,6 +166,24 @@ namespace sadu.Controllers
                 db.SaveChanges();
                 return Json(true);
             }
+        }
+
+        public ActionResult LoadBanner()
+        {
+
+            String image;
+
+            if ((bool)Session["isAdmin"])
+            {
+                image = @"\\Assets\\Banners\\admin.png";
+            }
+            else
+            {
+                Organization org = (Organization)Session["organization"];
+                image = org.OrganizationImage.SidebarImage;
+            }
+
+            return Content(image);
         }
 
         protected override void Dispose(bool disposing)

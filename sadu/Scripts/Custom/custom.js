@@ -37,6 +37,18 @@
         }
     });
 
+    $.ajax({
+        type: "get",
+        url: "Users/LoadBanner",
+        success: function (path) {
+            console.log("banner loaded" + path);
+            $(".sidebar-background").css("background", "url(" + path + ")");
+        },
+        error: function (xhs) {
+            console.log("Error: " + xhr);
+        }
+    });
+
 });
 /*
     for loading gif to slowly disappear

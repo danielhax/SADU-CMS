@@ -37,9 +37,9 @@ namespace sadu.DAL
 
             var images = new List<OrganizationImage>
             {                                  //get image file name and store to database
-                new OrganizationImage{Image = Path.GetFileName("~//Assets//acm.png")},
-                new OrganizationImage{Image = Path.GetFileName("~//Assets//jpcs.jpg")},
-                new OrganizationImage{Image = Path.GetFileName("~//Assets//scc.png")}
+                new OrganizationImage{Image = Path.GetFileName("~//Assets//acm.png"), SidebarImage = @"\\Assets\\Banners\\ACM.png"},
+                new OrganizationImage{Image = Path.GetFileName("~//Assets//jpcs.jpg"), SidebarImage = @"\\Assets\\Banners\\JPCS.png"},
+                new OrganizationImage{Image = Path.GetFileName("~//Assets//scc.png"), SidebarImage = @"\\Assets\\Banners\\SCC.png"}
             };
 
 

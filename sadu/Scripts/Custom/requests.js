@@ -1,5 +1,26 @@
 ﻿$(function () {
 
+    //requests on regular click
+    $("#deleteOrgBtn").click(function () {
+        var id = $("#orgInfoModal").find(".content").prop("id");
+
+        $.ajax({
+            type: "post",
+            url: "Organizations/Delete",
+            data: { orgId: id },
+            success: function (result) {
+                console.log(result.Message);
+                updateOrganizationsPartialView();
+            },
+            error: function (xhs) {
+                console.log("Cannot run delete request: " + xhs.responseText);
+            },
+            complete: function () {
+                $("#orgInfoModal").modal("hide");
+            }
+        });
+    });
+
     //submit on clicks
     $('#loginForm').submit(function (e) {
         e.preventDefault();
@@ -107,6 +128,21 @@
             },
             error: function (xhs) {
                 console.log("error" + xhs.responseText);
+            }
+        });
+    });
+
+    $("#updateProfileForm").submit(function () {
+        console.log("updae request");
+        $.ajax({
+            type: "post",
+            url: "Users/Edit",
+            data: $(this).serialize(),
+            success: function (result) {
+                console.log(result.Message);
+            },
+            error: function (xhs) {
+                console.log("Cannot edit user profile" + xhs.responseText);
             }
         });
     });

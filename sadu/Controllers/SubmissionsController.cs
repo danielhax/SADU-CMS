@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Web;
 using System.IO;
 using Ionic.Zip;
+using System.Collections;
 
 namespace sadu.Controllers
 {
@@ -65,7 +66,6 @@ namespace sadu.Controllers
 
                     //delete last submission by organization
                     Organization organization = (Organization)Session["organization"];
-                    //deleteLastSubmission(submittal_id, organization);
 
 
 
@@ -121,6 +121,21 @@ namespace sadu.Controllers
                         fullPath = Path.Combine(fullPath, fname);
                         file.SaveAs(fullPath);
 
+
+                        //Start compression
+                        //Phase 1: Encoding
+                        //Compressor compressor = new Compressor();
+                        //byte[] rawBytes = System.IO.File.ReadAllBytes(fullPath);
+                        //String bytesString = compressor.GetEncoding(fullPath).GetString(rawBytes);
+                        //compressor.Build(bytesString);
+                        //BitArray encoded = compressor.Encode(bytesString);
+
+                        ////Phase 3: Delete original file
+                        //System.IO.File.Delete(fullPath);
+
+                        ////Phase 2: Save as .bin
+                        //byte[] encodedBytes = new byte[encoded.Length / 8 + (encoded.Length % 8 == 0 ? 0 : 1)];
+                        //System.IO.File.WriteAllBytes(fullPath + ".bin", encodedBytes);
                     }
                     // Returns message that successfully uploaded  
                     return Json(new { Message = "File Uploaded Successfully!" + org_id + " " + user.Id });
@@ -264,15 +279,15 @@ namespace sadu.Controllers
         //public ActionResult DownloadAll()
         //{
 
-
+    
         //    List<String> paths = new List<String>();
 
-        //    foreach(var item in RouteData.Values)
+        //    foreach (var item in RouteCollectionExtensions)
         //    {
-        //        paths.Add(item.Value);
+        //        paths.Add(item.Value.ToString());
         //    }
 
-        //    return Json(new { Message = paths[1] }, JsonRequestBehavior.AllowGet);
+        //    return Json(new { Message = paths[2] }, JsonRequestBehavior.AllowGet);
 
         //    //using (ZipFile zip = new ZipFile())
         //    //{
@@ -283,8 +298,6 @@ namespace sadu.Controllers
         //    //}
 
         //    //return Json();
-
-
         //}
 
         public String GetContentType(String path)

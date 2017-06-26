@@ -7,11 +7,17 @@ namespace sadu.Models
 
     public class OrganizationImage : DbContext
     {
+        public OrganizationImage()
+        {
+            SidebarImage = null;
+        }
         [Key]
         [ForeignKey("Organization")]
         public int Id { get; set; }
 
         public String Image { get; set; }
+
+        public String SidebarImage { get; set; }
 
         public virtual Organization Organization { get; set; }
     }

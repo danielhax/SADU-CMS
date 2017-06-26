@@ -52,6 +52,8 @@
                             </div>
                             <hr />
                             <div class="content">
+                                <span class="card-label">Details: </span> @non_archived.ElementAt(i).details
+                                <br />
                                 <span class="card-label">Deadline: </span> @non_archived.ElementAt(i).date_deadline
                                 <br />
                                 @if (!isAdmin)
@@ -59,7 +61,8 @@
                                     <span class="card-label">Upload: </span>
                                     <label class="btn btn-primary btn-browse">
                                         Browse <input type="file"
-                                                      accept="application/msword, application/vnd.ms-excel,
+                                                      accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+                                                      application/vnd.ms-excel,
                                                       application/vnd.ms-powerpoint, text/plain, application/pdf"
                                                       id="file@(non_archived.ElementAt(i).Id)"
                                                       name="file@(non_archived.ElementAt(i).Id)"
