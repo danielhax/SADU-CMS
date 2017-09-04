@@ -2,8 +2,6 @@
 File Management System for FEU-TECH's SADU department  
 My very first ASP.NET project for a school project  
 
-**Template: Light Bootstrap Dashboard**  
-
 **28/05/2017** (First Progress report)  
     -__PAGES__:  
         1. Login  
@@ -17,7 +15,11 @@ My very first ASP.NET project for a school project
     -__DATABASE__:  
         *Current db design works so far, foreign keys are ok.  
     -__PIORITIES__:  
-        - [ ] Find best way to implement ajax (hopefully using separate .js file)  
+        - [ ] Find best way to implement ajax
         - [ ] Admin creates new submission  
+        
+**Late last progress update**
+    Everything above are done including file submission/saving.
+    Bugs include "Download All" button.
     
     
